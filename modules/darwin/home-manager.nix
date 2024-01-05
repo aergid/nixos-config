@@ -60,18 +60,18 @@ in
   # Fully declarative dock using the latest from Nix Store
   local.dock.enable = true;
   local.dock.entries = [
+    { path = "/System/Applications/Photos.app/"; }
     { path = "/Applications/Slack.app/"; }
     { path = "/Applications/Telegram.app/"; }
-    { path = "/Applications/VLC.app/"; }
     { path = "/Applications/Firefox.app/"; }
     { path = "/Applications/Vivaldi.app/"; }
-    { path = "/Applications/Qobuz.app/"; }
-  #  { path = "/System/Applications/Messages.app/"; }
-  #  { path = "/System/Applications/Facetime.app/"; }
     { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
+    { path = "/Applications/VLC.app/"; }
+    { path = "/Applications/Qobuz.app/"; }
+  #  { path = "/System/Applications/Facetime.app/"; }
+  #  { path = "/System/Applications/Messages.app/"; }
   #  { path = "/System/Applications/Music.app/"; }
   #  { path = "/System/Applications/News.app/"; }
-    { path = "/System/Applications/Photos.app/"; }
   #  { path = "/System/Applications/Photo Booth.app/"; }
   #  { path = "/System/Applications/TV.app/"; }
   #  { path = "/System/Applications/Home.app/"; }
@@ -80,11 +80,11 @@ in
   #    section = "others";
   #    options = "--sort name --view grid --display folder";
   #  }
-    {
-      path = "${config.users.users.${user}.home}/.local/share/downloads";
-      section = "others";
-      options = "--sort name --view grid --display stack";
-    }
+  #  {
+  #    path = "${config.users.users.${user}.home}/.local/share/downloads";
+  #    section = "others";
+  #    options = "--sort name --view grid --display stack";
+  #  }
   ];
 
 }
