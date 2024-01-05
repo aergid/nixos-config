@@ -61,9 +61,14 @@ let user = "ksanteen"; in
       };
 
       dock = {
-        autohide = false;
+        autohide = true;
+        autohide-delay = 0.0;
+        autohide-time-modifier = 0.2;
+        launchanim = false;
+        showhidden = true;
         show-recents = false;
-        launchanim = true;
+        show-process-indicators = true;
+        mru-spaces = false; # no rearrange
         orientation = "bottom";
         tilesize = 48;
       };
@@ -80,7 +85,7 @@ let user = "ksanteen"; in
 
     keyboard = {
       enableKeyMapping = true;
-      remapCapsLockToControl = true;
+      remapCapsLockToControl = false;
     };
   };
 }

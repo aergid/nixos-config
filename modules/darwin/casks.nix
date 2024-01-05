@@ -20,6 +20,7 @@ _:
 
   # Entertainment Tools
   "vlc"
+  "qobuz"
 
   # Productivity Tools
   "raycast"
@@ -27,6 +28,6 @@ _:
 
   # Browsers
   "firefox"
-
+  "vivaldi"
   # AI
 ]
