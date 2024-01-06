@@ -10,6 +10,11 @@ let user = "ksanteen"; in
     ../../modules/shared/cachix
   ];
 
+  programs.bash.enable = true;
+  programs.zsh.enable = true;
+  programs.fish.enable = true;
+  environment.shells = with pkgs; [ bashInteractive fish zsh ];
+
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
