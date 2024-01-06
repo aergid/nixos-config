@@ -42,11 +42,18 @@ let user = "ksanteen"; in
   fonts.fontDir.enable = true;
 
   system = {
+    activationScripts.postUserActivation.text = ''
+    # Following line should allow us to avoid a logout/login cycle
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    '';
+
     stateVersion = 4;
 
     defaults = {
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
+        # Special letters input
+        # Conflicts with KeyRepeat
         ApplePressAndHoldEnabled = false;
 
         # 120, 90, 60, 30, 12, 6, 2
@@ -54,6 +61,8 @@ let user = "ksanteen"; in
 
         # 120, 94, 68, 35, 25, 15
         InitialKeyRepeat = 15;
+
+        _HIHideMenuBar = true;
 
         "com.apple.mouse.tapBehavior" = 1;
         "com.apple.sound.beep.volume" = 0.0;

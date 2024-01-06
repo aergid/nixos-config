@@ -58,6 +58,11 @@ with pkgs; [
   jetbrains-mono
   jq
   ripgrep
+  lazygit
+  tig
+  lazydocker
+  ranger
+  eza
   tree
   tmux
   unrar
