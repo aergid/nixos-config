@@ -83,6 +83,11 @@ let user = "ksanteen"; in
       };
 
       finder = {
+        AppleShowAllExtensions = true;
+        AppleShowAllFiles = true;
+        FXDefaultSearchScope = "SCcf";  # current folder as default
+        ShowPathbar = true; 
+        ShowStatusBar = true;
         _FXShowPosixPathInTitle = false;
       };
 
