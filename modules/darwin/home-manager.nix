@@ -66,6 +66,7 @@ in
     { path = "/Applications/Firefox.app/"; }
     { path = "/Applications/Vivaldi.app/"; }
     { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
+    { path = "${pkgs.joplin-desktop}/Applications/Joplin.app/"; }
     { path = "/Applications/VLC.app/"; }
     { path = "/Applications/Qobuz.app/"; }
   #  { path = "/System/Applications/Facetime.app/"; }

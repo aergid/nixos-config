@@ -18,6 +18,8 @@ with pkgs; [
   sqlite
   wget
   zip
+  joplin-desktop
+  jetbrains.idea-community
 
   # Encryption and security tools
   age
