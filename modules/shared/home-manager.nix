@@ -300,13 +300,22 @@ let name = "aergid";
     terminal = "screen-256color";
     prefix = "C-b";
     escapeTime = 10;
-    historyLimit = 50000;
+    historyLimit = 100000;
     extraConfig = ''
+      set -g default-command $HOME/.nix-profile/bin/fish
+      set -g default-shell $HOME/.nix-profile/bin/fish
+
+      # automatically renumber tmux windows
+      set -g renumber-windows on
+
       # Remove Vim mode delays
       set -g focus-events on
 
       # Enable full mouse support
       set -g mouse on
+
+      # make window/pane index start with 1
+      setw -g pane-base-index 1
 
       # -----------------------------------------------------------------------------
       # Key bindings
@@ -317,9 +326,12 @@ let name = "aergid";
       unbind '"'
       unbind %
 
-      # Split panes, vertical or horizontal
-      bind-key x split-window -v
-      bind-key v split-window -h
+      # reload config file
+      bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
+
+      # split window and fix path for tmux 1.9
+      bind | split-window -h -c "#{pane_current_path}"
+      bind - split-window -v -c "#{pane_current_path}"
 
       # Move around panes with vim-like bindings (h,j,k,l)
       bind-key -n M-k select-pane -U

@@ -64,6 +64,7 @@ with pkgs; [
   lazygit
   tig
   lazydocker
+  gh
   ranger
   eza
   tree
