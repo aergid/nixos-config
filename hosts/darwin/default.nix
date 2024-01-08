@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let user = "ksanteen"; in
 
@@ -10,9 +10,31 @@ let user = "ksanteen"; in
     ../../modules/shared/cachix
   ];
 
-  programs.bash.enable = true;
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
+  programs = {
+    bash.enable = true;
+    zsh.enable = true;
+    fish.enable = true;
+    fish.shellInit = ''
+      __nixos_path_fix
+      '';
+  };
+  # see https://github.com/LnL7/nix-darwin/issues/122
+  environment.etc."fish/nixos-env-preinit.fish".text = lib.mkMerge [
+    (lib.mkBefore ''
+      set -g __nixos_path_original $PATH
+      '')
+    (lib.mkAfter ''
+      function __nixos_path_fix -d "fix PATH value"
+      set -l result (string replace '$HOME' "$HOME" $__nixos_path_original)
+      for elt in $PATH
+        if not contains -- $elt $result
+          set -a result $elt
+        end
+      end
+      set -g PATH $result
+      end
+      '')
+  ];
   environment.shells = with pkgs; [ bashInteractive fish zsh ];
 
   # Auto upgrade nix package and the daemon service.
