@@ -26,8 +26,12 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    oldPkgs = {
+      url = "https://github.com/NixOS/nixpkgs/archive/refs/tags/22.05.tar.gz";
+      flake = false;
+    };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, oldPkgs } @inputs:
     let
       user = "ksanteen";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];

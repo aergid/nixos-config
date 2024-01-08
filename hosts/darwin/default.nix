@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, oldPkgs, ... }:
 
-let user = "ksanteen"; in
+let
+  user = "ksanteen";
+  old = import oldPkgs {  system = "aarch64-darwin"; };
+in
 
 {
 
@@ -63,7 +66,13 @@ let user = "ksanteen"; in
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
+    old.colima
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+
+  environment.variables = {
+    JAVA_OPTS="-Xmx2G";
+    DOCKER_HOST="unix:///Users/${user}/.colima/docker.sock";
+  };
 
   # Enable fonts dir
   fonts.fontDir.enable = true;
