@@ -206,14 +206,6 @@ let name = "aergid";
         ];
       };
 
-      dynamic_padding = true;
-      decorations = "full";
-      title = "Terminal";
-      class = {
-        instance = "Alacritty";
-        general = "Alacritty";
-      };
-
       colors = {
         primary = {
           background = "0x1f2528";
@@ -242,6 +234,15 @@ let name = "aergid";
           white = "0xd8dee9";
         };
       };
+
+      ${if pkgs.stdenv.hostPlatform.isLinux then "class" else null} = {
+        instance = "Alacritty";
+        general = "Alacritty";
+      };
+
+      ${if pkgs.stdenv.hostPlatform.isLinux then "decorations" else null} = "full";
+      ${if pkgs.stdenv.hostPlatform.isLinux then "dynamic_padding" else null} = true;
+      ${if pkgs.stdenv.hostPlatform.isLinux then "title" else null} = "Terminal";
     };
   };
 
