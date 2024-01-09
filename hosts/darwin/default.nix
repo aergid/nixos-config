@@ -17,7 +17,7 @@ in
     bash.enable = true;
     zsh.enable = true;
     fish.enable = true;
-    fish.shellInit = ''
+    fish.loginShellInit = ''
       __nixos_path_fix
       '';
   };
