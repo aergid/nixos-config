@@ -1,5 +1,9 @@
 { pkgs }:
-
+let
+  gdk = pkgs.google-cloud-sdk.withExtraComponents( with pkgs.google-cloud-sdk.components; [
+    gke-gcloud-auth-plugin
+  ]);
+in
 with pkgs; [
   # General packages for development and system management
   act
@@ -11,6 +15,9 @@ with pkgs; [
   btop
   coreutils
   fish
+  gdk
+  jetbrains.idea-community
+  joplin-desktop
   killall
   neofetch
   openssh
@@ -18,8 +25,6 @@ with pkgs; [
   sqlite
   wget
   zip
-  joplin-desktop
-  jetbrains.idea-community
 
   # Encryption and security tools
   age
