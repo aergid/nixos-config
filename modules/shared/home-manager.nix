@@ -180,6 +180,38 @@ let name = "aergid";
       '';
      };
 
+  fzf = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set fish_greeting # Disable greeting
+    '';
+    shellAliases = {
+      ga = "git add";
+      gc = "git commit";
+      gs = "git status";
+    };
+    plugins = with pkgs.fishPlugins; [
+      { name = "autopair"; src = autopair.src; }
+      { name = "bobthefish"; src = bobthefish.src; }
+      { name = "colored-man-pages"; src = colored-man-pages.src; }
+      { name = "grc"; src = grc.src; }
+      { name = "z"; src = z.src; }
+      # hydro
+    ];
+    shellInit = ''
+      # man-pages colors
+      set -g man_blink -o red
+      set -g man_bold -o green
+      set -g man_standout -b black 93a1a1
+      set -g man_underline -u 93a1a1
+    '';
+  };
+
   alacritty = {
     enable = true;
     settings = {

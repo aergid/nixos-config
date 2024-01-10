@@ -15,7 +15,9 @@ with pkgs; [
   btop
   coreutils
   fish
+  fzf
   gdk
+  grc
   jetbrains.idea-community
   joplin-desktop
   killall
@@ -23,6 +25,7 @@ with pkgs; [
   openssh
   pandoc
   sqlite
+  vifm
   wget
   zip
 
