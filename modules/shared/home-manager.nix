@@ -214,12 +214,14 @@ let name = "aergid";
 
   alacritty = {
     enable = true;
+
     settings = {
       cursor = {
         style = "Block";
       };
 
       window = {
+        startup_mode = "Maximized";
         opacity = 1.0;
         padding = {
           x = 24;
