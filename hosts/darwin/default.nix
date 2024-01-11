@@ -72,6 +72,7 @@ in
   environment.variables = {
     JAVA_OPTS="-Xmx2G";
     DOCKER_HOST="unix:///Users/${user}/.colima/docker.sock";
+    PAGER="most";
   };
 
   # Enable fonts dir

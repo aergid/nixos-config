@@ -21,6 +21,7 @@ with pkgs; [
   jetbrains.idea-community
   joplin-desktop
   killall
+  most
   neofetch
   openssh
   pandoc
