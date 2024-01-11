@@ -191,16 +191,25 @@ let name = "aergid";
       set fish_greeting # Disable greeting
     '';
     shellAliases = {
-      ga = "git add";
       gc = "git commit";
       gs = "git status";
     };
     plugins = with pkgs.fishPlugins; [
       { name = "autopair"; src = autopair.src; }
       { name = "bobthefish"; src = bobthefish.src; }
+      { name = "forgit"; src = forgit.src; }
       { name = "grc"; src = grc.src; }
+      #{ name = "hydro"; src = hydro.src; }
       { name = "z"; src = z.src; }
-      # hydro
+      {
+	name = "fish-exa"; #TODO derive with proper install/uninstall
+	src = pkgs.fetchFromGitHub {
+	  owner = "gazorby";
+	  repo = "fish-exa";
+	  rev = "92e5bcb762f7c08cc4484a2a09d6c176814ef35d";
+	  sha256 = "sha256-kw4XrchvF4SNNoX/6HRw2WPvCxKamwuTVWdHg82Pqac=";
+	};
+      }
     ];
   };
 
