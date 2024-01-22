@@ -10,7 +10,6 @@ with pkgs; [
   alacritty
   aspell
   aspellDicts.en
-  bash-completion
   bat
   btop
   coreutils
@@ -25,7 +24,6 @@ with pkgs; [
   neofetch
   openssh
   pandoc
-  sqlite
   vifm
   wget
   zip
@@ -34,7 +32,6 @@ with pkgs; [
   age
   age-plugin-yubikey
   gnupg
-  libfido2
   pinentry
   yubikey-manager
 
@@ -42,7 +39,6 @@ with pkgs; [
   docker
   docker-compose
 
-  awscli2
   flyctl
   ngrok
   tflint
@@ -76,13 +72,12 @@ with pkgs; [
   lazydocker
   lazygit
   ncdu
+  p7zip
   ranger
   ripgrep
   tig
   tmux
   tree
-  unrar
-  unzip
   zsh-powerlevel10k
 
   # Python packages
