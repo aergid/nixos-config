@@ -64,20 +64,23 @@ with pkgs; [
   nodejs
 
   # Text and terminal utilities
+  eza
+  gh
+  grpcurl
   htop
+  httpie
   hunspell
   iftop
   jetbrains-mono
   jq
-  ripgrep
-  lazygit
-  tig
   lazydocker
-  gh
+  lazygit
+  ncdu
   ranger
-  eza
-  tree
+  ripgrep
+  tig
   tmux
+  tree
   unrar
   unzip
   zsh-powerlevel10k

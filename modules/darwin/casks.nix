@@ -18,6 +18,7 @@ _:
   "appcleaner"
   "syncthing"
   "rectangle"
+  "yandex-disk"
 
   # Entertainment Tools
   "vlc"
