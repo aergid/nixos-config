@@ -20,6 +20,7 @@ _:
   "vlc"
   "qobuz"
   "qview"
+  "eqmac"
 
   # Productivity Tools
   "raycast"
