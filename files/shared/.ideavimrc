@@ -1,0 +1,41 @@
+let mapleader ="\<Space>"
+
+" set clipboard+=unnamedplus
+set clipboard+=unnamed
+set clipboard+=ideaput
+
+:inoremap jk <Esc>
+:inoremap kj <Esc>
+" :inoremap <esc> <nop>
+
+map ; :
+noremap ;; ;
+
+set surround
+set commentary
+set easymotion
+
+set ignorecase
+set smartcase
+set relativenumber
+set number
+      
+vnoremap < <gv
+vnoremap > >gv
+
+nnoremap ]e :action GotoNextError<CR>
+nnoremap [e :action GotoPreviousError<CR>
+
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+
+nnoremap <s-TAB> :action PreviousTab<CR>
+nnoremap <TAB> :action NextTab<CR>
+
+map <leader>ss <Plug>(easymotion-sn)
+map <leader>sa <Plug>(easymotion-f2) 
+
+nmap <leader>/ :action CommentByLineComment<CR>
+vmap <leader>/ :action CommentByLineComment<CR>
+
+nnoremap <leader>o :action CloseAllEditorsButActive<CR>
