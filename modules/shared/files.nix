@@ -9,5 +9,8 @@
   ".tigrc" = {
     source = ../../files/shared/.tigrc;
   };
+  ".config/gh-dash/config.yml" = {
+    source = ../../files/shared/gh-dash/config.yml;
+  };
 
 }

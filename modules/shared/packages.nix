@@ -62,6 +62,7 @@ with pkgs; [
   # Text and terminal utilities
   eza
   gh
+  gh-dash
   grpcurl
   htop
   httpie
