@@ -6,5 +6,8 @@
   "idea-project.xml" = {
     source = ../../files/shared/idea-project.xml;
   };
+  ".tigrc" = {
+    source = ../../files/shared/.tigrc;
+  };
 
 }
