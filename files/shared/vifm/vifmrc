@@ -3,6 +3,8 @@ colorscheme papercolor-dark
 filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif /Applications/qView.app/Contents/MacOS/qView %f &
 filetype * open %c
 
+nnoremap o :!vim %f<cr>
+
 set norunexec
 set sort=+dir,+iname,-mode
 set showtabline=always
