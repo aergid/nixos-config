@@ -12,5 +12,11 @@
   ".config/gh-dash/config.yml" = {
     source = ../../files/shared/gh-dash/config.yml;
   };
+  ".vifm/vifmrc" = {
+    source = ../../files/shared/vifm/vifmrc;
+  };
+  ".vifm/colors/papercolor-dark.vifm" = {
+    source = ../../files/shared/vifm/papercolor-dark.vifm;
+  };
 
 }
