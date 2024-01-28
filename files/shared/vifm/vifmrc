@@ -79,3 +79,60 @@ set classify+='📼 ::*.avi,,*.ts,,*.axv,,*.divx,,*.m2v,,*.m4p,,*.m4v,,.mka,,*.m
 " office files
 set classify+='🖹 ::*.doc,,*.docx::, ::*.xls,,*.xls[mx]::, ::*.pptx,,*.ppt::'
 
+
+" Sorting
+" ------------------------------------------------------------------------------
+command! togglesort
+         \ :if &sort == '-size,+name'
+         \ |    set sort=+mtime
+         \ |    echo 'Sorted by modification date'
+         \ |else
+         \ |    if &sort == '+name'
+         \ |        set sort=-size
+         \ |        echo 'Sorted by size'
+         \ |    else
+         \ |        set sort=+name
+         \ |        echo 'Sorted by name'
+         \ |    endif
+         \ |endif
+nnoremap s :togglesort<cr>
+
+" Sessions and history
+" ------------------------------------------------------------------------------
+set vifminfo=
+      \bmarks,
+      \bookmarks,
+      \cs,
+      \chistory,
+      \dhistory,
+      \dirstack,
+      \fhistory,
+      \phistory,
+      \registers,
+      \savedirs,
+      \shistory,
+      \state,
+      \tabs,
+      \tui,
+      \options,
+      \filetypes,
+      \commands
+
+set sessionoptions=
+      \bmarks,
+      \bookmarks,
+      \cs,
+      \chistory,
+      \dhistory,
+      \dirstack,
+      \fhistory,
+      \phistory,
+      \registers,
+      \savedirs,
+      \shistory,
+      \state,
+      \tabs,
+      \tui,
+      \options,
+      \filetypes,
+      \commands
