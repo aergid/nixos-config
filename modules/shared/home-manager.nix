@@ -200,6 +200,7 @@ let name = "aergid";
       { name = "forgit"; src = forgit.src; }
       { name = "grc"; src = grc.src; }
       #{ name = "hydro"; src = hydro.src; }
+      { name = "sponge"; src = sponge.src; }
       { name = "z"; src = z.src; }
       {
 	name = "fish-exa"; #TODO derive with proper install/uninstall
