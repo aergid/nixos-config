@@ -114,7 +114,8 @@ colorscheme papercolor-dark
 
 mark b ~/bin/
 mark h ~/
-mark l ~/Dowloads
+mark l ~/Downloads
+mark c ~/Develop/exp/nixos-config
 mark d ~/Develop
 
 " ------------------------------------------------------------------------------
@@ -157,6 +158,13 @@ command! togglesort
          \ |        echo 'Sorted by name'
          \ |    endif
          \ |endif
+command! fzffind 
+        \ : set noquickview
+        \| let $FZF_PICK = system('find . | fzf --height 10 2>/dev/tty')
+        \| if $FZF_PICK != ''
+        \|     execute 'goto' fnameescape($FZF_PICK)
+        \| endif
+        \| redraw
 
 " ------------------------------------------------------------------------------
 " File types association
@@ -352,7 +360,13 @@ fileviewer {*.docx},
 
 " Displaying pictures in terminal
 " fileviewer *.jpg,*.png shellpic %c
+
+" Common files
 fileviewer *[^/],.*[^/] bat --color always --wrap never --pager never %c -p
+
+" Directories
+fileviewer */,.*/ lt 3 -I .git %c
+
 
 " Open all other files with default system programs (you can also remove all
 " :file[x]type commands above to ensure they don't interfere with system-wide
@@ -414,6 +428,10 @@ nnoremap ,c :write | edit $MYVIFMRC | restart full<cr>
 
 " Toggle wrap setting on ,w key
 nnoremap ,w :set wrap!<cr>
+
+nnoremap <space>s :fzffind<cr>
+nnoremap b :bmgo<space>
+nnoremap q :q<cr>
 
 " Example of standard two-panel file managers mappings
 nnoremap <f3> :!less %f<cr>
