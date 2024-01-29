@@ -1,5 +1,12 @@
-# Colorscheme
-# https://github.com/dracula/gh-dash
+defaults:
+  layout:
+    prs:
+      repo:
+        grow: true,
+        width: 30
+        hidden: false
+pager:
+  diff: delta
 
 theme:
   ui:
@@ -8,13 +15,13 @@ theme:
   colors:
     text:
       primary: "#f8f8f2"
-      secondary: "#ff79c6"
+      secondary: "#ffb86c"
       inverted: "#282a36"
-      faint: "#ffb86c"
+      faint: "#797d9c"
       warning: "#ff5555"
       success: "#50fa7b"
     background:
-      selected: "#AD85FC"
+      selected: "#292e42"
     border:
       primary: "#383B5B"
       secondary: "#39386B"

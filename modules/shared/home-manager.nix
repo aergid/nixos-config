@@ -72,7 +72,7 @@ let name = "aergid";
 
   vim = {
     enable = true;
-    plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-startify vim-tmux-navigator ];
+    plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-startify vim-tmux-navigator colorizer ];
     settings = { ignorecase = true; };
     extraConfig = ''
       "" General
