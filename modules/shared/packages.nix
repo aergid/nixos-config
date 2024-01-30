@@ -13,6 +13,7 @@ with pkgs; [
   bat
   btop
   coreutils
+  delta
   fish
   fzf
   gdk
