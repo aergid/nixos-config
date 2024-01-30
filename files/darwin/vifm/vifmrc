@@ -362,7 +362,8 @@ fileviewer {*.docx},
 " fileviewer *.jpg,*.png shellpic %c
 
 " Common files
-fileviewer *[^/],.*[^/] bat --color always --wrap never --pager never %c -p
+fileviewer *[^/],.*[^/] pygmentize -O style=monokai -f console256 -g
+
 
 " Directories
 fileviewer */,.*/ lt 3 -I .git %c

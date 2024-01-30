@@ -72,9 +72,12 @@ in
   environment.variables = {
     JAVA_OPTS="-Xmx2G";
     DOCKER_HOST="unix:///Users/${user}/.colima/docker.sock";
-    GH_PAGER="bat --plain";
-    PAGER="most";
+    PAGER="less -R";
     EDITOR="vim";
+    BAT_THEME="Monokai Extended Bright";
+    GH_PAGER="bat --plain";
+    MANROFFOPT="-c";
+    MANPAGER="sh -c 'col -bx | bat -l man -p'";
   };
 
   # Enable fonts dir
