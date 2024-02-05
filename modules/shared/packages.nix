@@ -74,6 +74,7 @@ with pkgs; [
   lazydocker
   lazygit
   ncdu
+  ntfs3g
   p7zip
   ranger
   ripgrep
