@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, ... }:
+{ config, pkgs, lib, home-manager, nixvim, ... }:
 
 let
   user = "ksanteen";
@@ -8,7 +8,7 @@ let
 in
 {
   imports = [
-   ./dock
+     ./dock
   ];
 
   # It me
@@ -40,6 +40,10 @@ in
   home-manager = {
     useGlobalPkgs = true;
     users.${user} = { pkgs, config, lib, ... }:{
+      imports = [
+        nixvim.homeManagerModules.nixvim   
+        ../shared/neovim
+      ];
       home = {
         enableNixpkgsReleaseCheck = false;
         packages = pkgs.callPackage ./packages.nix {};
