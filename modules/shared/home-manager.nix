@@ -189,12 +189,12 @@ let name = "aergid";
     enable = true;
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
-      functions -c fish_prompt _old_fish_prompt
+      functions -c fish_prompt _my_old_fish_prompt
       function fish_prompt
 	if set -q VIFM
 	  echo -n -s (set_color -b blue white) "(VIFM)" (set_color normal) " "
 	end
-	_old_fish_prompt
+	_my_old_fish_prompt
       end
     '';
     shellAliases = {
