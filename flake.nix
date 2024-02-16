@@ -2,7 +2,6 @@
   description = "Starter Configuration for MacOS and NixOS";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
       url = "github:LnL7/nix-darwin/master";
@@ -28,15 +27,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:nix-community/nixvim/b3ea5256e07ee9105060cffa075028402946bd63";
+      #url = "github:nix-community/nixvim/6cfffc82eee872a5b57a4880b1c9dff2044fc035";
     };
     oldPkgs = {
       url = "https://github.com/NixOS/nixpkgs/archive/refs/tags/22.05.tar.gz";
       flake = false;
     };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, nixvim, nixpkgs-stable, oldPkgs } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, nixvim, oldPkgs } @inputs:
     let
       user = "ksanteen";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
