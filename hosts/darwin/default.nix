@@ -73,7 +73,7 @@ in
     JAVA_OPTS="-Xmx2G";
     DOCKER_HOST="unix:///Users/${user}/.colima/docker.sock";
     PAGER="less -R";
-    EDITOR="vim";
+    EDITOR="nvim";
     BAT_THEME="Monokai Extended Bright";
     GH_PAGER="bat --plain";
     MANROFFOPT="-c";

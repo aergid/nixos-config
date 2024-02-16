@@ -36,7 +36,7 @@ let name = "aergid";
       export HISTIGNORE="pwd:ls:cd"
 
       export ALTERNATE_EDITOR=""
-      export EDITOR="vim"
+      export EDITOR="nvim"
 
       # nix shortcuts
       shell() {
@@ -62,7 +62,7 @@ let name = "aergid";
     extraConfig = {
       init.defaultBranch = "main";
       core = { 
-	    editor = "vim";
+        editor = "vim";
         autocrlf = "input";
       };
       pull.rebase = true;
@@ -70,10 +70,11 @@ let name = "aergid";
     };
   };
 
-  vim = {
+  neovim = {
     enable = true;
+    viAlias = true;
+    vimAlias = true;
     plugins = with pkgs.vimPlugins; [ vim-airline vim-airline-themes vim-startify vim-tmux-navigator colorizer ];
-    settings = { ignorecase = true; };
     extraConfig = ''
       "" General
       set number
@@ -93,7 +94,8 @@ let name = "aergid";
       set ruler
       set backspace=indent,eol,start
       set laststatus=2
-      set clipboard=autoselect
+      set clipboard=
+      set mouse=
 
       " Dir stuff
       set nobackup
@@ -113,6 +115,8 @@ let name = "aergid";
       set expandtab
 
       "" Searching
+      set ignorecase
+      set smartcase
       set incsearch
       set gdefault
 
