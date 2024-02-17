@@ -1,7 +1,11 @@
-{
+{pkgs, ...}: {
   programs.nixvim = {
     plugins.tagbar = {
       enable = true;
+      package = pkgs.vimPlugins.tagbar;
+      extraConfig = {
+        show_tag_count = true;
+      };
     };
 
     keymaps = [

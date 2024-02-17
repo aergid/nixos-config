@@ -10,7 +10,7 @@
     ./neorg.nix
     ./neo-tree.nix
     ./startify.nix
-##    ./tagbar.nix
+    ./tagbar.nix
     ./telescope.nix
     ./treesitter.nix
   ];
