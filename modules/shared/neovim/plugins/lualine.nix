@@ -1,8 +1,19 @@
 {
   programs.nixvim.plugins.lualine = {
     enable = true;
+    theme = "palenight";
 
     globalstatus = true;
+
+    componentSeparators = {
+        left = "";
+        right = "";
+      };
+
+      sectionSeparators = {
+        left = "";
+        right = "";
+      };
 
     # +-------------------------------------------------+
     # | A | B | C                             X | Y | Z |
