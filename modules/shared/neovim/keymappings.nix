@@ -28,13 +28,6 @@
           # back and fourth between the two most recent files
           "<C-c>" = ":b#<CR>";
 
-          # close by Ctrl+x
-          "<C-x>" = ":close<CR>";
-
-          # save by Space+s or Ctrl+s
-          "<leader>s" = ":w<CR>";
-          "<C-s>" = ":w<CR>";
-
           # navigate to left/right window
           "<leader>h" = "<C-w>h";
           "<leader>l" = "<C-w>l";
@@ -44,17 +37,15 @@
           H = "^";
 
           # resize with arrows
-          "<C-Up>" = ":resize -2<CR>";
-          "<C-Down>" = ":resize +2<CR>";
-          "<C-Left>" = ":vertical resize +2<CR>";
-          "<C-Right>" = ":vertical resize -2<CR>";
+          "<S-Up>" = ":resize -2<CR>";
+          "<S-Down>" = ":resize +2<CR>";
+          "<S-Left>" = ":vertical resize +2<CR>";
+          "<S-Right>" = ":vertical resize -2<CR>";
 
           # move current line up/down
           # M = Alt key
           "<M-k>" = ":move-2<CR>";
           "<M-j>" = ":move+<CR>";
-
-          "<leader>rp" = ":!remi push<CR>";
         };
       visual =
         lib.mapAttrsToList
