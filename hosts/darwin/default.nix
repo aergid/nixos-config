@@ -82,6 +82,9 @@ in
 
   # Enable fonts dir
   fonts.fontDir.enable = true;
+  fonts.fonts = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka" "Hack" ]; })
+  ];
 
   system = {
     activationScripts.postUserActivation.text = ''
