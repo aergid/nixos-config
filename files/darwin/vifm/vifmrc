@@ -158,7 +158,7 @@ command! togglesort
          \ |        echo 'Sorted by name'
          \ |    endif
          \ |endif
-command! fzffind 
+command! fzffind
         \ : set noquickview
         \| let $FZF_PICK = system('find . | fzf --height 10 2>/dev/tty')
         \| if $FZF_PICK != ''
@@ -362,7 +362,7 @@ fileviewer {*.docx},
 " fileviewer *.jpg,*.png shellpic %c
 
 " Common files
-fileviewer *[^/],.*[^/] pygmentize -O style=monokai -f console256 -g
+fileviewer *[^/],.*[^/] pygmentize -O style=github-dark -f console256 -g
 
 
 " Directories

@@ -16,7 +16,11 @@
   ];
 
   programs.nixvim = {
-    colorschemes.gruvbox.enable = true;
+    colorschemes.catppuccin = {
+      enable = true;
+      flavour = "mocha";
+    };
+
 
     plugins = {
       gitsigns = {

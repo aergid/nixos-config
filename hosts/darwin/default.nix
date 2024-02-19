@@ -74,7 +74,7 @@ in
     DOCKER_HOST="unix:///Users/${user}/.colima/docker.sock";
     PAGER="less -R";
     EDITOR="nvim";
-    BAT_THEME="Monokai Extended Bright";
+    BAT_THEME="OneHalfDark";
     GH_PAGER="bat --plain";
     MANROFFOPT="-c";
     MANPAGER="sh -c 'col -bx | bat -l man -p'";
@@ -128,7 +128,7 @@ in
         AppleShowAllExtensions = true;
         AppleShowAllFiles = true;
         FXDefaultSearchScope = "SCcf";  # current folder as default
-        ShowPathbar = true; 
+        ShowPathbar = true;
         ShowStatusBar = true;
         _FXShowPosixPathInTitle = false;
       };
