@@ -18,6 +18,7 @@ with pkgs; [
   fzf
   gdk
   grc
+  jdk21
   jetbrains.idea-community
   joplin-desktop
   killall
@@ -25,6 +26,8 @@ with pkgs; [
   neofetch
   openssh
   pandoc
+  sbt-with-scala-native
+  scalafmt
   vifm
   wget
   zip
