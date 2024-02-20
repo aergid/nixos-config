@@ -61,7 +61,7 @@ let name = "aergid";
     };
     extraConfig = {
       init.defaultBranch = "main";
-      core = { 
+      core = {
         editor = "vim";
         autocrlf = "input";
       };
@@ -82,10 +82,10 @@ let name = "aergid";
       set fish_greeting # Disable greeting
       functions -c fish_prompt _my_old_fish_prompt
       function fish_prompt
-	if set -q VIFM
-	  echo -n -s (set_color -b blue white) "(VIFM)" (set_color normal) " "
-	end
-	_my_old_fish_prompt
+        if set -q VIFM
+          echo -n -s (set_color -b blue white) "(VIFM)" (set_color normal) " "
+        end
+        _my_old_fish_prompt
       end
     '';
     shellAliases = {
@@ -97,17 +97,16 @@ let name = "aergid";
       { name = "bobthefish"; src = bobthefish.src; }
       { name = "forgit"; src = forgit.src; }
       { name = "grc"; src = grc.src; }
-      #{ name = "hydro"; src = hydro.src; }
       { name = "sponge"; src = sponge.src; }
       { name = "z"; src = z.src; }
       {
-	name = "fish-exa"; #TODO derive with proper install/uninstall
-	src = pkgs.fetchFromGitHub {
-	  owner = "gazorby";
-	  repo = "fish-exa";
-	  rev = "92e5bcb762f7c08cc4484a2a09d6c176814ef35d";
-	  sha256 = "sha256-kw4XrchvF4SNNoX/6HRw2WPvCxKamwuTVWdHg82Pqac=";
-	};
+        name = "fish-exa"; #TODO derive with proper install/uninstall
+        src = pkgs.fetchFromGitHub {
+          owner = "gazorby";
+          repo = "fish-exa";
+          rev = "92e5bcb762f7c08cc4484a2a09d6c176814ef35d";
+          sha256 = "sha256-kw4XrchvF4SNNoX/6HRw2WPvCxKamwuTVWdHg82Pqac=";
+        };
       }
     ];
   };
