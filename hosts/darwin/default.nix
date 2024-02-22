@@ -1,8 +1,7 @@
-{ config, pkgs, lib, oldPkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   user = "ksanteen";
-  old = import oldPkgs {  system = "aarch64-darwin"; };
 in
 
 {
@@ -66,7 +65,7 @@ in
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
-    old.colima
+    colima
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   environment.variables = {

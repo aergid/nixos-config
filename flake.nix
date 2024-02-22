@@ -30,12 +30,8 @@
       url = "github:nix-community/nixvim/b3ea5256e07ee9105060cffa075028402946bd63";
       #url = "github:nix-community/nixvim/6cfffc82eee872a5b57a4880b1c9dff2044fc035";
     };
-    oldPkgs = {
-      url = "https://github.com/NixOS/nixpkgs/archive/refs/tags/22.05.tar.gz";
-      flake = false;
-    };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, nixvim, oldPkgs } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, nixvim } @inputs:
     let
       user = "ksanteen";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
