@@ -23,6 +23,8 @@
 
 
     plugins = {
+      leap.enable = true;
+
       gitsigns = {
         enable = true;
         signs = {
