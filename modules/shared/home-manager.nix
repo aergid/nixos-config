@@ -126,6 +126,7 @@ let name = "aergid";
           x = 24;
           y = 24;
         };
+        ${if pkgs.stdenv.hostPlatform.isLinux then null else "option_as_alt"} = "Both";
       };
 
       font = {
