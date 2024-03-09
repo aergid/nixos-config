@@ -3,9 +3,10 @@
     plugins.markdown-preview = {
       enable = true;
 
-      autoClose = false;
-
-      theme = "dark";
+      settings = {
+        autoClose = false;
+        theme = "dark";
+      };
     };
 
     keymaps = [

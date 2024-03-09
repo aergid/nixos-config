@@ -26,12 +26,10 @@ shared-packages ++ [
   galculator
 
   # Audio tools
-  cava # Terminal audio visualizer
   pavucontrol # Pulse audio controls
 
   # Messaging and chat applications
-  cider # Apple Music on Linux
-  # tdesktop # telegram desktop
+  tdesktop # telegram desktop
 
   # Testing and development tools
   direnv

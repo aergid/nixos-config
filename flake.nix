@@ -27,8 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/b3ea5256e07ee9105060cffa075028402946bd63";
-      #url = "github:nix-community/nixvim/6cfffc82eee872a5b57a4880b1c9dff2044fc035";
+      url = "github:nix-community/nixvim";
+      # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
+      inputs.nixpkgs.follows = "nixpkgs";
+      #url = "github:nix-community/nixvim/b3ea5256e07ee9105060cffa075028402946bd63";
+      ##url = "github:nix-community/nixvim/6cfffc82eee872a5b57a4880b1c9dff2044fc035";
     };
   };
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, nixvim } @inputs:
@@ -105,6 +108,7 @@
         specialArgs = inputs;
         modules = [
           disko.nixosModules.disko
+	  nixvim.nixosModules.nixvim
           home-manager.nixosModules.home-manager {
             home-manager = {
               useGlobalPkgs = true;
@@ -113,6 +117,7 @@
             };
           }
           ./hosts/nixos
+	  ./modules/shared/neovim
         ];
      });
   };

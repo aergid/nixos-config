@@ -167,15 +167,6 @@ let name = "aergid";
           white = "0xd8dee9";
         };
       };
-
-      ${if pkgs.stdenv.hostPlatform.isLinux then "class" else null} = {
-        instance = "Alacritty";
-        general = "Alacritty";
-      };
-
-      ${if pkgs.stdenv.hostPlatform.isLinux then "decorations" else null} = "full";
-      ${if pkgs.stdenv.hostPlatform.isLinux then "dynamic_padding" else null} = true;
-      ${if pkgs.stdenv.hostPlatform.isLinux then "title" else null} = "Terminal";
     };
   };
 

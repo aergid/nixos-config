@@ -135,8 +135,8 @@ let user = "ksanteen";
       };
 
       # Turn Caps Lock into Ctrl
-      layout = "us";
-      xkbOptions = "ctrl:nocaps";
+      xkb.layout = "us";
+      xkb.options = "ctrl:nocaps";
 
       # Better support for general peripherals
       libinput.enable = true;

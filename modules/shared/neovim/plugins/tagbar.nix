@@ -3,7 +3,7 @@
     plugins.tagbar = {
       enable = true;
       package = pkgs.vimPlugins.tagbar;
-      extraConfig = {
+      settings = {
         show_tag_count = true;
       };
     };

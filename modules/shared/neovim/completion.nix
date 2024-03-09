@@ -21,26 +21,10 @@
         };
       };
 
-      nvim-cmp = {
-        enable = true;
-
-        snippet.expand = "luasnip";
-
-        mapping = {
-          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-          "<C-f>" = "cmp.mapping.scroll_docs(4)";
-          "<C-Space>" = "cmp.mapping.complete()";
-          "<C-e>" = "cmp.mapping.close()";
-          "<Tab>" = {
-            modes = ["i" "s"];
-            action = "cmp.mapping.select_next_item()";
-          };
-          "<S-Tab>" = {
-            modes = ["i" "s"];
-            action = "cmp.mapping.select_prev_item()";
-          };
-          "<CR>" = "cmp.mapping.confirm({ select = true })";
-        };
+      cmp.enable = true;
+      cmp.settings = {
+        autoEnableSources = true;
+        snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
 
         sources = [
           {name = "path";}
@@ -53,7 +37,18 @@
           }
           {name = "neorg";}
         ];
+
+        mapping = {
+          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+          "<C-f>" = "cmp.mapping.scroll_docs(4)";
+          "<C-Space>" = "cmp.mapping.complete()";
+          "<C-e>" = "cmp.mapping.close()";
+          "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+          "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+          "<CR>" = "cmp.mapping.confirm({ select = true })";
+        };
       };
+
 
     };
   };

@@ -9,8 +9,6 @@
     ./todo.nix
   ];
 
-  home.shellAliases.v = "nvim";
-
   programs.nixvim = {
     enable = true;
 
