@@ -39,7 +39,6 @@ let
       bspc config pointer_action2 resize_corner
 
       # Set background and top bar
-      systemctl --user start polybar
 
       sleep .25
 
@@ -201,48 +200,6 @@ let
     '';
   };
 
-  "${xdg_configHome}/polybar/bin/popup-calendar.sh" = {
-    executable = true;
-    text = ''
-      #!/bin/sh
-
-      DATE="$(/run/current-system/sw/bin/date +"%B %d, %Y")"
-      SCREEN_WIDTH=$(/run/current-system/sw/bin/xrandr | /run/current-system/sw/bin/grep '*' | /run/current-system/sw/bin/awk '{print $1}' | /run/current-system/sw/bin/cut -d 'x' -f1)
-      POSX=$(( (SCREEN_WIDTH / 2) - ((SCREEN_WIDTH / 2 * 625) / 10000) ))
-
-      case "$1" in
-      --popup)
-          /etc/profiles/per-user/${user}/bin/yad --calendar --fixed \
-            --posx=$POSX --posy=80 --no-buttons --borders=0 --title="yad-calendar" \
-            --close-on-unfocus
-        ;;
-      *)
-          echo "$DATE"
-        ;;
-      esac
-    '';
-  };
-
-  "${xdg_configHome}/polybar/bin/check-nixos-updates.sh" = {
-    executable = true;
-    text = ''
-      #!/bin/sh
-
-      /run/current-system/sw/bin/git -C ~/.local/share/src/nixpkgs fetch upstream master
-      UPDATES=$(/run/current-system/sw/bin/git -C ~/.local/share/src/nixpkgs rev-list origin/master..upstream/master --count 2>/dev/null);
-      /run/current-system/sw/bin/echo " $UPDATES"; # Extra space for presentation with icon
-      /run/current-system/sw/bin/sleep 1800;
-    '';
-  };
-
-  "${xdg_configHome}/polybar/bin/search-nixos-updates.sh" = {
-    executable = true;
-    text = ''
-      #!/bin/sh
-
-      /etc/profiles/per-user/${user}/bin/google-chrome-stable --new-window "https://search.nixos.org/packages?channel=23.05&from=0&size=50&sort=relevance&type=packages"
-    '';
-  };
 
   "${xdg_configHome}/rofi/colors.rasi".text = builtins.readFile ./config/rofi/colors.rasi;
   "${xdg_configHome}/rofi/confirm.rasi".text = builtins.readFile ./config/rofi/confirm.rasi;

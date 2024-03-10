@@ -3,11 +3,9 @@
 with pkgs;
 let shared-packages = import ../shared/packages.nix { inherit pkgs; }; in
 shared-packages ++ [
-  vim
 
+  firefox
   # Security and authentication
-  yubikey-manager-qt
-  yubikey-agent
   keepassxc
 
   # App and package management
@@ -18,6 +16,7 @@ shared-packages ++ [
 
   # Media and design tools
   vlc
+  gnome_mplayer
   fontconfig
   font-manager
 
@@ -34,10 +33,7 @@ shared-packages ++ [
   # Testing and development tools
   direnv
   rofi
-  rofi-calc
   rnix-lsp # lsp-mode for nix
-  postgresql
-  libtool # for Emacs vterm
 
   # Screenshot and recording tools
   flameshot
@@ -59,12 +55,9 @@ shared-packages ++ [
   libnotify
   playerctl # Control media players from command line
   pinentry-curses
-  pcmanfm # Our file browser
-  sqlite
   xdg-utils
 
   # Other utilities
-  yad # I use yad-calendar with polybar
   xdotool
 
   # PDF viewer
