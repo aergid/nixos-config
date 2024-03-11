@@ -66,7 +66,6 @@ with pkgs; [
   # Text and terminal utilities
   eza
   gh
-  gh-dash
   grpcurl
   htop
   httpie
@@ -79,7 +78,6 @@ with pkgs; [
   ncdu
   ntfs3g
   p7zip
-  ranger
   ripgrep
   tig
   tmux

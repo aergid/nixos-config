@@ -32,7 +32,6 @@ shared-packages ++ [
 
   # Testing and development tools
   direnv
-  rofi
   rnix-lsp # lsp-mode for nix
 
   # Screenshot and recording tools
@@ -51,9 +50,8 @@ shared-packages ++ [
 
   # File and system utilities
   inotify-tools # inotifywait, inotifywatch - For file system events
-  i3lock-fancy-rapid
+#  i3lock-fancy-rapid
   libnotify
-  playerctl # Control media players from command line
   pinentry-curses
   xdg-utils
 
