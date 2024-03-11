@@ -39,7 +39,7 @@
         };
 
         "core.concealer".__empty = null;
-        "core.completion".config.engine = "cmp";
+        "core.completion".config.engine = "nvim-cmp";
         "core.qol.toc".config.close_after_use = true;
       };
     };
