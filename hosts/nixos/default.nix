@@ -89,10 +89,10 @@ let user = "ksanteen";
 
   services = {
     logind = {
-	lidSwitch = "suspend-then-hibernate";
-	lidSwitchDocked = "ignore";
-        lidSwitchExternalPower = "lock";
-	extraConfig = "HandlePowerKey=suspend";
+	    lidSwitch = "suspend-then-hibernate";
+	    lidSwitchDocked = "ignore";
+      lidSwitchExternalPower = "lock";
+	    extraConfig = "HandlePowerKey=suspend";
     };
 
     pantheon.apps.enable = true;
@@ -110,10 +110,6 @@ let user = "ksanteen";
     xserver = {
       enable = true;
       videoDrivers = [ "intel" ];
-
-
-      # Comment this for AMD GPU
-      # This helps fix tearing of windows for Nvidia cards
       # services.xserver.screenSection = ''
       #   Option       "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
       #   Option       "AllowIndirectGLXProtocol" "off"
@@ -174,14 +170,6 @@ let user = "ksanteen";
   # Enable sound
   # sound.enable = true;
 
-  # Video support
-  hardware = {
-    opengl.enable = true;
-    # pulseaudio.enable = true;
-    # hardware.nvidia.modesetting.enable = true;
-  };
-
-
   # Add docker daemon
   virtualisation = {
     docker = {
@@ -233,6 +221,7 @@ let user = "ksanteen";
   environment.systemPackages = with pkgs; [
     gitAndTools.gitFull
     inetutils
+    pciutils
   ];
 
   environment.pantheon.excludePackages = with pkgs.pantheon; [
