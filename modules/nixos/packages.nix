@@ -3,6 +3,7 @@
 with pkgs;
 let shared-packages = import ../shared/packages.nix { inherit pkgs; }; in
 shared-packages ++ [
+  vim
 
   # Security and authentication
   yubikey-manager-qt
@@ -67,11 +68,7 @@ shared-packages ++ [
   # Other utilities
   yad # I use yad-calendar with polybar
   xdotool
-  google-chrome
 
   # PDF viewer
-  zathura
-
-  # Music and entertainment
-  spotify
+  evince
 ]

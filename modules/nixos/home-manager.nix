@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nixvim, ... }:
 
 let
   user = "ksanteen";

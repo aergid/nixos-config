@@ -1,38 +1,67 @@
 { config, inputs, pkgs, ... }:
 
 let user = "ksanteen";
-    keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhnU4G74TmS+p" ]; in
+    keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK//F4D06X/qtiPFHb7Cbkkou2PBJBA1Fcd6NcrTQTzr" ]; in
 {
   imports = [
-    ../../modules/nixos/disk-config.nix
+    ../../modules/nixos/hardware-configuration.nix
     ../../modules/shared
     ../../modules/shared/cachix
   ];
 
-  # Use the systemd-boot EFI boot loader.
+  # Supposedly better for the SSD.
+  fileSystems."/" = { options = [ "noatime" "nodiratime" "discard" ]; };
+
   boot = {
-    loader = {
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 42;
+    initrd.luks.devices = {
+      crypt = {
+        device = "/dev/sda2";
+        preLVM = true;
       };
-      efi.canTouchEfiVariables = true;
     };
+
     initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+
+    loader = {
+      efi = {
+        efiSysMountPoint = "/boot/efi";
+        canTouchEfiVariables = true;
+      };
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        enableCryptodisk = true;
+      };
+    };
+    extraModprobeConfig = ''
+      options hid_apple fnmode=2
+    '';
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "uinput" ];
+    kernelModules = [ "uinput" "hid-apple" ];
   };
 
   # Set your time zone.
-  time.timeZone = "America/New_York";
+  time.timeZone = "Europe/Stockholm";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking = {
+    networkmanager.enable = true;
     hostName = "borealis"; # Define your hostname.
     useDHCP = false;
-    interfaces."%INTERFACE%".useDHCP = true;
+    interfaces."wlp4s0".useDHCP = true;
+  };
+
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    supportedLocales = [ "en_US.UTF-8/UTF-8" ];
+  };
+
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "us";
   };
 
   # Turn on flag for proprietary software
@@ -57,6 +86,24 @@ let user = "ksanteen";
   };
 
   services = { 
+    logind = {
+	lidSwitch = "suspend-then-hibernate";
+	lidSwitchDocked = "ignore";
+        lidSwitchExternalPower = "lock";
+	extraConfig = "HandlePowerKey=suspend";
+      
+    };
+
+    autorandr.enable = true;
+
+    #battery optimization subsystem
+    tlp.enable = true;
+
+    #nixos-auto-update.enable = true;
+    logrotate = {
+      enable = true;
+    };
+
     xserver = {
       enable = true;
 
@@ -99,23 +146,6 @@ let user = "ksanteen";
     # Let's be able to SSH into this machine
     openssh.enable = true;
 
-    # Sync state between machines
-    syncthing = {
-      enable = true;
-      openDefaultPorts = true;
-      dataDir = "/home/${user}/.local/share/syncthing";
-      configDir = "/home/${user}/.config/syncthing";
-      user = "${user}";
-      group = "users";
-      guiAddress = "127.0.0.1:8384";
-      overrideFolders = true;
-      overrideDevices = true;
-
-      settings = {
-        devices = {};
-        options.globalAnnounceEnabled = false; # Only sync on LAN
-      };
-    };
 
     # Enable CUPS to print documents
     # printing.enable = true;
@@ -225,12 +255,6 @@ let user = "ksanteen";
     opengl.enable = true;
     # pulseaudio.enable = true;
     # hardware.nvidia.modesetting.enable = true;
-
-    # Enable Xbox support
-    # hardware.xone.enable = true;
-
-    # Crypto wallet support
-    ledger.enable = true;
   };
 
 
