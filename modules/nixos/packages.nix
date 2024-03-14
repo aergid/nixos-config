@@ -15,8 +15,8 @@ shared-packages ++ [
   home-manager
 
   # Media and design tools
-  vlc
   gnome_mplayer
+  mpv
   fontconfig
   font-manager
 
