@@ -5,6 +5,7 @@ _:
   "homebrew/cask/docker"
   "postico"
   "keepassxc"
+  "openvpn-connect"
 
   # Communication Tools
   "discord"
