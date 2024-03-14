@@ -87,6 +87,9 @@ let user = "ksanteen";
     pantheon-tweaks.enable = true;
   };
 
+  # Enable powertop
+  powerManagement.powertop.enable = true;
+
   services = {
     logind = {
 	    lidSwitch = "suspend-then-hibernate";
@@ -100,7 +103,20 @@ let user = "ksanteen";
     autorandr.enable = true;
 
     #battery optimization subsystem
-   # tlp.enable = true;
+
+    # Better scheduling for CPU cycles - thanks System76!!!
+    system76-scheduler.settings.cfsProfiles.enable = true;
+    power-profiles-daemon.enable = false; # conflicts with tlp
+    # Enable thermald (only necessary if on Intel CPUs)
+    thermald.enable = true;
+    tlp = {
+      settings = {
+        CPU_BOOST_ON_AC = 1;
+        CPU_BOOST_ON_BAT = 0;
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      };
+    };
 
     #nixos-auto-update.enable = true;
     logrotate = {
