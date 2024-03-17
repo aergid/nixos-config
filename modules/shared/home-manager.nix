@@ -227,8 +227,8 @@ let name = "aergid";
     escapeTime = 10;
     historyLimit = 100000;
     extraConfig = ''
-      set -g default-command $HOME/.nix-profile/bin/fish
-      set -g default-shell $HOME/.nix-profile/bin/fish
+      set -g default-command "${pkgs.fish}/bin/fish"
+      set -g default-shell "${pkgs.fish}/bin/fish"
 
       # automatically renumber tmux windows
       set -g renumber-windows on
