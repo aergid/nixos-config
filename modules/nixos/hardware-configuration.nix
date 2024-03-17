@@ -8,7 +8,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.blacklistedKernelModules = [ "nouveau" "nvidia" ];
-  boot.kernelParams = [ "acpi_rev_override=5" "i915.enable_guc=2" ];
+  boot.kernelParams = [ "mem_sleep_default=deep" "acpi_rev_override=5" "i915.enable_guc=2" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 

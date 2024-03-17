@@ -41,6 +41,11 @@ let user = "ksanteen";
     kernelModules = [ "uinput" "hid-apple" ];
   };
 
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30m
+    SuspendState=mem
+  '';
+
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
 
@@ -115,6 +120,8 @@ let user = "ksanteen";
         CPU_BOOST_ON_BAT = 0;
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        START_CHARGE_THRESH_BAT0 = 90;
+        STOP_CHARGE_THRESH_BAT0 = 96;
       };
     };
 
