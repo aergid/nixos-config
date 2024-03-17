@@ -37,7 +37,10 @@ let user = "ksanteen";
     extraModprobeConfig = ''
       options hid_apple fnmode=2
     '';
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
+    # bluetooth keyboard not working after resume from hibernate
+    # https://github.com/NixOS/nixpkgs/issues/286044
+    kernelPackages = pkgs.pkgs.linuxPackages_6_6;
     kernelModules = [ "uinput" "hid-apple" ];
   };
 
