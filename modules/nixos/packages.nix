@@ -32,7 +32,6 @@ shared-packages ++ [
 
   # Testing and development tools
   direnv
-  rnix-lsp # lsp-mode for nix
 
   # Screenshot and recording tools
   flameshot
