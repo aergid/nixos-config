@@ -108,7 +108,7 @@
         specialArgs = inputs;
         modules = [
           disko.nixosModules.disko
-	  nixvim.nixosModules.nixvim
+          nixvim.nixosModules.nixvim
           home-manager.nixosModules.home-manager {
             home-manager = {
               useGlobalPkgs = true;
@@ -117,7 +117,7 @@
             };
           }
           ./hosts/nixos
-	  ./modules/shared/neovim
+          ./modules/shared/neovim
         ];
      });
   };

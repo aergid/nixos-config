@@ -7,6 +7,9 @@ let
   shared-files = import ../shared/files.nix { inherit config pkgs; };
 in
 {
+  imports = [
+    hm/pantheon.nix
+    ];
   home = {
     enableNixpkgsReleaseCheck = false;
     username = "${user}";
@@ -14,19 +17,6 @@ in
     packages = pkgs.callPackage ./packages.nix {};
     file = shared-files // import ./files.nix { inherit user; };
     stateVersion = "21.05";
-  };
-
-  # Use a dark theme
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome.adwaita-icon-theme;
-    };
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome.adwaita-icon-theme;
-    };
   };
 
   services = {
