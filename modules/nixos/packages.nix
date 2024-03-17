@@ -51,7 +51,6 @@ shared-packages ++ [
   inotify-tools # inotifywait, inotifywatch - For file system events
 #  i3lock-fancy-rapid
   libnotify
-  pinentry-curses
   xdg-utils
 
   # Other utilities

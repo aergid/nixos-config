@@ -36,7 +36,6 @@ with pkgs; [
   age
   age-plugin-yubikey
   gnupg
-  pinentry
   yubikey-manager
 
   # Cloud-related tools and SDKs
