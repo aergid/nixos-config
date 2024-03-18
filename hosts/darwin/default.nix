@@ -175,10 +175,6 @@ in
         location = "~/Desktop";
         type = "png";
       };
-      "com.apple.mail" = {
-        # Disable inline attachments (just show the icons)
-        DisableInlineAttachmentViewing = true;
-      };
       "com.apple.AdLib" = {
         allowApplePersonalizedAdvertising = false;
       };
