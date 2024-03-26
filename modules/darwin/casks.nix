@@ -6,6 +6,7 @@ _:
   "postico"
   "keepassxc"
   "openvpn-connect"
+  "syncthing"
 
   # Communication Tools
   "discord"
