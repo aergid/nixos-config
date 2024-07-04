@@ -44,7 +44,7 @@ in
 
   # Setup user, packages, programs
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.git;
     settings.trusted-users = [ "@admin" "${user}" ];
 
     gc = {
@@ -80,8 +80,7 @@ in
   };
 
   # Enable fonts dir
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka" "Hack" ]; })
   ];
 
