@@ -91,8 +91,6 @@ let user = "ksanteen";
 
     # My shell
     fish.enable = true;
-
-    pantheon-tweaks.enable = true;
   };
 
   # Enable powertop
@@ -175,10 +173,11 @@ let user = "ksanteen";
       xkb.layout = "us";
       xkb.options = "ctrl:nocaps";
 
-      # Better support for general peripherals
-      libinput.enable = true;
-
     };
+
+    # Better support for general peripherals
+    libinput.enable = true;
+
 
     # Let's be able to SSH into this machine
     openssh.enable = true;
@@ -265,6 +264,7 @@ let user = "ksanteen";
     gitAndTools.gitFull
     inetutils
     pciutils
+    pantheon-tweaks
   ];
 
   environment.pantheon.excludePackages = with pkgs.pantheon; [
