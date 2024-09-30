@@ -13,8 +13,23 @@
   boot.extraModulePackages = [ ];
 
   hardware.rtl-sdr.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;    ## If compatibility with 32-bit applications is desired.
+  #hardware.pulseaudio.enable = true;
+  #hardware.pulseaudio.support32Bit = true;    ## If compatibility with 32-bit applications is desired.
+
+  # On NixOS 24.05 or older, this option must be set:
+  #sound.enable = false;
+
+  # rtkit is optional but recommended
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+  };
+
 
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };

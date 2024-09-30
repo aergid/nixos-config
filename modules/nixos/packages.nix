@@ -15,7 +15,7 @@ shared-packages ++ [
   home-manager
 
   # Media and design tools
-  gnome_mplayer
+  celluloid #instead of gnome_mplayer
   mpv
   fontconfig
   font-manager
