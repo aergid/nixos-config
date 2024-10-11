@@ -16,7 +16,6 @@ _:
   # Utility Tools
   "appcleaner"
   "macfuse"
-  "rectangle"
   "yandex-disk"
 
   # Entertainment Tools
