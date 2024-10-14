@@ -41,8 +41,7 @@ in
     useGlobalPkgs = true;
     users.${user} = { pkgs, config, lib, ... }:{
       imports = [
-        nixvim.homeManagerModules.nixvim   
-        ../shared/neovim
+         ../shared/neovim
       ];
       home = {
         enableNixpkgsReleaseCheck = false;
