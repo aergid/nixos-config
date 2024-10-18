@@ -23,6 +23,7 @@
 
     plugins = {
       leap.enable = true;
+      web-devicons.enable = true;
 
       gitsigns = {
         enable = true;
