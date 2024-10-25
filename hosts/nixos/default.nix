@@ -104,7 +104,7 @@ let user = "ksanteen";
 	    extraConfig = "HandlePowerKey=suspend";
     };
 
-    pantheon.apps.enable = true;
+    # pantheon.apps.enable = true;
 
     autorandr.enable = true;
 
@@ -141,33 +141,35 @@ let user = "ksanteen";
       # '';
 
       desktopManager = {
+        gnome.enable = true;
         #xfce = {
         #  enable = true;
         #  noDesktop = false;
         #  enableXfwm = false;
         #};
-        pantheon = {
-          enable = true;
-          extraWingpanelIndicators = with pkgs; [
-            monitor
-            wingpanel-indicator-ayatana
-          ];
-        };
+        # pantheon = {
+        #   enable = true;
+        #   extraWingpanelIndicators = with pkgs; [
+        #     monitor
+        #     wingpanel-indicator-ayatana
+        #   ];
+        # };
 
       };
       displayManager = {
+        gdm.enable = true;
     #    defaultSession = "xfce+bspwm";
-        lightdm = {
-          enable = true;
-    #      greeters.slick.enable = true;
-          greeters.pantheon.enable = true;
-        };
+    #     lightdm = {
+    #       enable = true;
+    # #      greeters.slick.enable = true;
+    #       greeters.pantheon.enable = true;
+    #     };
       };
 
       # Tiling window manager
-      windowManager.bspwm = {
-        enable = true;
-      };
+      # windowManager.bspwm = {
+      #   enable = true;
+      # };
 
       # Turn Caps Lock into Ctrl
       xkb.layout = "us";
@@ -264,15 +266,15 @@ let user = "ksanteen";
     gitAndTools.gitFull
     inetutils
     pciutils
-    pantheon-tweaks
+    # pantheon-tweaks
   ];
 
-  environment.pantheon.excludePackages = with pkgs.pantheon; [
-    elementary-music
-    elementary-photos
-    elementary-videos
-    epiphany
-  ];
+  # environment.pantheon.excludePackages = with pkgs.pantheon; [
+  #   elementary-music
+  #   elementary-photos
+  #   elementary-videos
+  #   epiphany
+  # ];
 
   system.stateVersion = "21.05"; # Don't change this
 
