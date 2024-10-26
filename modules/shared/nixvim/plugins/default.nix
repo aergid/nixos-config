@@ -27,6 +27,7 @@
     plugins = {
       leap.enable = true;
       web-devicons.enable = true;
+      vim-surround.enable = true;
 
       gitsigns = {
         enable = true;
