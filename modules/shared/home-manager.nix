@@ -120,11 +120,12 @@ let name = "aergid";
       };
 
       window = {
+        option_as_alt = "OnlyLeft"; # | "OnlyRight" | "Both" | "None" # (macos only)
         startup_mode = "Maximized";
         opacity = 1.0;
         padding = {
-          x = 24;
-          y = 24;
+          x = 0;
+          y = 0;
         };
       };
 
