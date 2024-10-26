@@ -4,6 +4,7 @@
     ./comment.nix
     ./floaterm.nix
     ./harpoon.nix
+    ./indent-blankline.nix
     ./lsp.nix
     ./lualine.nix
     ./markdown-preview.nix
