@@ -42,7 +42,7 @@ in
     users.${user} = { pkgs, config, lib, ... }:{
       imports = [
         nixvim.homeManagerModules.nixvim
-        ../shared/neovim
+        ../shared/nixvim
       ];
       home = {
         enableNixpkgsReleaseCheck = false;
