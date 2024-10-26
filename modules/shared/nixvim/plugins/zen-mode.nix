@@ -1,4 +1,13 @@
 {
+  programs.nixvim.keymaps = [
+    {
+      mode = "n";
+      key = "<leader>z";
+      action = ":ZenMode<CR>";
+      options.silent = true;
+    }
+  ];
+
   programs.nixvim.plugins.zen-mode = {
     enable = true;
 
@@ -38,12 +47,12 @@
           };
         };
         window = {
-          backdrop = 0.95;
+          backdrop = 0.90;
           height = 1;
           options = {
             signcolumn = "no";
           };
-          width = 0.8;
+          width = 0.6;
         };
 
     };
