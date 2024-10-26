@@ -7,12 +7,13 @@
     ./lsp.nix
     ./lualine.nix
     ./markdown-preview.nix
-    ./neorg.nix
     ./neo-tree.nix
+    ./neorg.nix
     ./startify.nix
     ./tagbar.nix
     ./telescope.nix
     ./treesitter.nix
+    ./zen-mode.nix
   ];
 
   programs.nixvim = {
