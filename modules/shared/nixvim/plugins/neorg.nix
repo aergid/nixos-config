@@ -1,17 +1,17 @@
 {
   programs.nixvim = {
-    files."after/ftplugin/norg.lua" = {
-      #localOptions.conceallevel = 1;
-
-      keymaps = [
-        {
-          mode = "n";
-          key = "<C-g>";
-          action = ":Neorg toc<CR>";
-          options.silent = true;
-        }
-      ];
-    };
+    # files."after/ftplugin/norg.lua" = {
+    #   #localOptions.conceallevel = 1;
+    #
+    #   keymaps = [
+    #     {
+    #       mode = "n";
+    #       key = "<C-g>";
+    #       action = ":Neorg toc<CR>";
+    #       options.silent = true;
+    #     }
+    #   ];
+    # };
 
     plugins.neorg = {
       enable = true;
@@ -33,9 +33,13 @@
           end
         '';
 
-        "core.dirman".config.workspaces = {
-          notes = "~/notes";
-          nix = "~/perso/nix/notes";
+        "core.dirman" = {
+          config = {
+            workspaces = {
+              home = "~/Notes/home";
+              work = "~/Notes/work";
+            };
+          };
         };
 
         "core.concealer".__empty = null;
