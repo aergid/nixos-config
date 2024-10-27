@@ -1,3 +1,4 @@
+{pkgs, ...}:
 {
   imports = [
     ./barbar.nix
@@ -26,7 +27,13 @@
 
     plugins = {
       leap.enable = true;
-      web-devicons.enable = true;
+      # web-devicons.enable = true;
+      mini = {
+        enable = true;
+        mockDevIcons = true;
+        modules.icons = { };
+      };
+
       vim-surround.enable = true;
 
       gitsigns = {
@@ -48,5 +55,10 @@
 
       oil.enable = true;
     };
+
+    extraPlugins =
+      # For plugins already packaged as nixpkgs
+      with pkgs.vimPlugins; [
+      ];
   };
 }
