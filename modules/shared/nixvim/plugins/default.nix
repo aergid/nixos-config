@@ -4,6 +4,7 @@
     ./barbar.nix
     ./comment.nix
     ./floaterm.nix
+    ./gitsigns.nix
     ./harpoon.nix
     ./indent-blankline.nix
     ./lsp.nix
@@ -40,16 +41,6 @@
         enable = true;
         # iconsEnabled = true;
         theme = "startify";
-      };
-
-      gitsigns = {
-        enable = true;
-        settings = {
-          signs = {
-            add.text = "+";
-            change.text = "~";
-          };
-        };
       };
 
       nvim-autopairs.enable = true;
