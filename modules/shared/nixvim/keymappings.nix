@@ -29,8 +29,11 @@
           "<C-c>" = ":b#<CR>";
 
           # navigate to left/right window
-          "<leader>h" = "<C-w>h";
-          "<leader>l" = "<C-w>l";
+          "<A-Left>" = ":wincmd h<CR>";
+          "<A-Right>" = ":wincmd l<CR>";
+          "<A-Down>" = ":wincmd j<CR>";
+          "<A-Up>" = ":wincmd k<CR>";
+
 
           # Press 'H', 'L' to jump to start/end of a line (first/last character)
           L = "$";
@@ -61,8 +64,8 @@
           "<S-TAB>" = "<gv";
 
           # move selected line / block of text in visual mode
-          "K" = ":m '<-2<CR>gv=gv";
-          "J" = ":m '>+1<CR>gv=gv";
+          "<S-Up>" = ":m '<-2<CR>gv=gv";
+          "<S-Down>" = ":m '>+1<CR>gv=gv";
         };
     in
       config.lib.nixvim.keymaps.mkKeymaps
