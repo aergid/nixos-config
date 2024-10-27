@@ -11,7 +11,6 @@
     ./markdown-preview.nix
     ./neo-tree.nix
     ./neorg.nix
-    ./startify.nix
     ./tagbar.nix
     ./telescope.nix
     ./treesitter.nix
@@ -35,6 +34,12 @@
       # };
 
       vim-surround.enable = true;
+
+      alpha = {
+        enable = true;
+        # iconsEnabled = true;
+        theme = "startify";
+      };
 
       gitsigns = {
         enable = true;
