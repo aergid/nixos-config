@@ -19,11 +19,13 @@
   ];
 
   programs.nixvim = {
-    colorschemes.catppuccin = {
-      enable = true;
-      settings.flavour = "mocha";
-    };
+    colorscheme = "catppuccin-mocha";
 
+    colorschemes = {
+      ayu.enable = true;
+      catppuccin.enable = true;
+      gruvbox.enable = true;
+    };
 
     plugins = {
       leap.enable = true;
