@@ -39,6 +39,7 @@
               home = "~/Notes/home";
               work = "~/Notes/work";
             };
+            default_workspace = "home";
           };
         };
 
