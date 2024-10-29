@@ -69,6 +69,15 @@
             sha256 = "sha256-P+nm96eHuyoM3tpWu4xhTckIleQiknmRtWwmc6snKZc=";
           };
         })
+        (pkgs.vimUtils.buildVimPlugin {
+          name = "highlight-undo";
+          src = pkgs.fetchFromGitHub {
+            owner = "tzachar";
+            repo = "highlight-undo.nvim";
+            rev = "c87a6ec";
+            sha256 = "sha256-zNzVmt4WJcspuloePhc6HbDvNA7B92NscE+fEYvCumc=";
+          };
+        })
       ];
 
     extraConfigLua = ''
@@ -77,6 +86,7 @@
          ratio = 0.9,
          width = 120
       })
+      require('highlight-undo').setup({})
     '';
   };
 }
