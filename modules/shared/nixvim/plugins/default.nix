@@ -1,6 +1,7 @@
 {pkgs, ...}:
 {
   imports = [
+    ./auto-session.nix
     ./barbar.nix
     ./comment.nix
     ./floaterm.nix
