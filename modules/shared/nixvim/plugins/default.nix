@@ -1,6 +1,7 @@
 {pkgs, ...}:
 {
   imports = [
+    ./auto-save.nix
     ./auto-session.nix
     ./barbar.nix
     ./comment.nix
