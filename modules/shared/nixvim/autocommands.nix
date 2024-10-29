@@ -6,12 +6,12 @@
       command = "%s/\\s\\+$//e";
     }
 
-    # Open help in a vertical split
-    {
-      event = "FileType";
-      pattern = "help";
-      command = "wincmd L";
-    }
+    # # Open help in a vertical split
+    # {
+    #   event = "FileType";
+    #   pattern = "help";
+    #   command = "wincmd L";
+    # }
 
     # Set indentation to 2 spaces for nix files
     {

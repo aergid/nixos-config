@@ -60,6 +60,23 @@
       # For plugins already packaged as nixpkgs
       with pkgs.vimPlugins; [
         nvim-web-devicons
+        (pkgs.vimUtils.buildVimPlugin {
+          name = "floating-help";
+          src = pkgs.fetchFromGitHub {
+            owner = "hyt589";
+            repo = "floating-help";
+            rev = "67d58d6";
+            sha256 = "sha256-P+nm96eHuyoM3tpWu4xhTckIleQiknmRtWwmc6snKZc=";
+          };
+        })
       ];
+
+    extraConfigLua = ''
+      require('floating-help').setup({
+         border = 'rounded',
+         ratio = 0.9,
+         width = 120
+      })
+    '';
   };
 }
