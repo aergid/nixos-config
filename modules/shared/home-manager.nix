@@ -119,6 +119,8 @@ let name = "aergid";
         style = "Block";
       };
 
+      env.term = "xterm-256color";
+
       window = {
         option_as_alt = "Both"; # | "OnlyRight" | "Both" | "None" # (macos only)
         startup_mode = "Maximized";
@@ -132,7 +134,7 @@ let name = "aergid";
       font = {
         normal = {
           family = "MesloLGS NF";
-          style = "Regular";
+          # style = "Regular";
         };
         size = lib.mkMerge [
           (lib.mkIf pkgs.stdenv.hostPlatform.isLinux 14)
@@ -223,11 +225,19 @@ let name = "aergid";
         '';
       }
     ];
-    terminal = "screen-256color";
+    terminal = "xterm-256color";
     prefix = "C-b";
     escapeTime = 10;
     historyLimit = 100000;
     extraConfig = ''
+      # True color settings
+      set -g default-terminal "xterm-256color"
+      set -ag terminal-overrides ",xterm-256color:Tc"
+      set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
+      set -as terminal-overrides ',*:Setulc=\E[58::2::::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours
+      set -as terminal-overrides ',*:Smxx=\E[9m' # strikethrough
+
+
       set -g default-command "${pkgs.fish}/bin/fish"
       set -g default-shell "${pkgs.fish}/bin/fish"
 
