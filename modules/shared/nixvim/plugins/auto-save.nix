@@ -9,7 +9,7 @@
           local bname = vim.api.nvim_buf_get_name(buf)
 
           if utils.not_in(fn.getbufvar(buf, "&filetype"),
-            {'gitcommit', 'gitrebase', 'oil'}
+            {'gitcommit', 'gitrebase', 'oil', 'TelescopePrompt', 'neo-tree', 'floaterm'}
           ) and not string.find(bname , "kubectl") then
             return true
           end
