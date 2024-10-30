@@ -21,12 +21,39 @@
   ];
 
   programs.nixvim = {
-    colorscheme = "catppuccin-mocha";
-
+    colorscheme = "catppuccin";
+    # colorscheme = "everforest";
     colorschemes = {
       ayu.enable = true;
-      catppuccin.enable = true;
+      catppuccin = {
+        enable = true;
+        settings = {
+          flavour = "mocha";
+          term_colors = true;
+          integrations = {
+            cmp = true;
+            gitsigns = true;
+            nvimtree = true;
+            treesitter = true;
+          };
+          dim_inactive = {
+            enabled = true;
+            percentage = 0.15;
+          };
+
+        };
+      };
+      everforest = {
+        enable = true;
+        settings = {
+          background = "hard";
+          enable_italic = 1;
+          dim_inactive_windows = 1;
+        };
+      };
       gruvbox.enable = true;
+      nightfox.enable = true;
+      onedark.enable = true;
     };
 
     plugins = {
