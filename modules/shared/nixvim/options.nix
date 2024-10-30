@@ -20,7 +20,7 @@
 
       # diff related
       diffopt="internal,filler,closeoff,algorithm:patience,linematch:60";
-      scrollbind = true;
+      # scrollbind = true;
 
       # Line numbers
       relativenumber = true; # Relative line numbers
