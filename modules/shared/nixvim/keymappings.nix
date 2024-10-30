@@ -28,6 +28,10 @@
           # back and fourth between the two most recent files
           "<C-c>" = ":b#<CR>";
 
+          # chdir
+          "<leader>cd" = ":lcd %:p:h<CR>:pwd<CR>";
+          "<leader>co" = ":lcd -<CR>:pwd<CR>";
+
           # navigate to left/right window
           "<A-Left>" = ":wincmd h<CR>";
           "<A-Right>" = ":wincmd l<CR>";
@@ -50,6 +54,7 @@
           "<M-k>" = ":move-2<CR>";
           "<M-j>" = ":move+<CR>";
         };
+
       visual =
         lib.mapAttrsToList
         (key: action: {
