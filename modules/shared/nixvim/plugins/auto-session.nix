@@ -7,21 +7,22 @@
         key = "<leader>fs";
         action = ":SessionSearch<CR>";
       }
-      {
-        mode = "n";
-        key = "<leader>sd";
-        action = ":SessionDelete<CR>";
-      }
-      {
-        mode = "n";
-        key = "<leader>ss";
-        action = ":SessionSave<CR>";
-      }
-      {
-        mode = "n";
-        key = "<leader>ts";
-        action = ":SessionToggleAutoSave<CR>";
-      }
+      ## disable while auto save is on
+      # {
+      #   mode = "n";
+      #   key = "<leader>sd";
+      #   action = ":SessionDelete<CR>";
+      # }
+      # {
+      #   mode = "n";
+      #   key = "<leader>ss";
+      #   action = ":SessionSave<CR>";
+      # }
+      # {
+      #   mode = "n";
+      #   key = "<leader>ts";
+      #   action = ":SessionToggleAutoSave<CR>";
+      # }
     ];
 
     plugins.auto-session = {
