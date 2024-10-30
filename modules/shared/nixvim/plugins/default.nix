@@ -22,9 +22,18 @@
 
   programs.nixvim = {
     colorscheme = "catppuccin";
-    # colorscheme = "everforest";
     colorschemes = {
       ayu.enable = true;
+      kanagawa = {
+        enable = true;
+        settings = {
+          undercurl = true;
+          commentStyle.italic = true;
+          dimInactive = true;
+          terminalColors = true;
+          theme = "wave";
+        };
+      };
       catppuccin = {
         enable = true;
         settings = {
