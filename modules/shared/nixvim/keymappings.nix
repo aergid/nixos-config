@@ -22,6 +22,8 @@
           # Esc to clear search results
           "<esc>" = ":noh<CR>";
 
+          "<C-q>" = ":tabclose<CR>";
+
           # fix Y behaviour
           Y = "y$";
 

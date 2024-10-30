@@ -18,6 +18,10 @@
       sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions";
       updatetime = 100; # Faster completion
 
+      # diff related
+      diffopt="internal,filler,closeoff,algorithm:patience,linematch:60";
+      scrollbind = true;
+
       # Line numbers
       relativenumber = true; # Relative line numbers
       number = true; # Display the absolute line number of the current line

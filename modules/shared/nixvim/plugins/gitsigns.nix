@@ -7,40 +7,26 @@
           add.text = "+";
           change.text = "~";
         };
-        # signs = {
-        #   add.text = "┃";
-        #   change.text = "┃";
-        #   delete.text = "_";
-        #   topdelete.text = "‾";
-        #   changedelete.text = "~";
-        #   untracked.text = "┆";
-        # };
-        # signs_staged = {
-        #   add.text = "┃";
-        #   change.text = "┃";
-        #   delete.text = "_";
-        #   topdelete.text = "‾";
-        #   changedelete.text = "~";
-        #   untracked.text = "┆";
-        # };
       };
     };
 
-    # From lua plugin examples
-    # -- Navigation
-    # map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-    # map('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
-    #
-    # -- Actions
-    # map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
-    # map('n', '<leader>tb', '<cmd>Gitsigns toggle_current_line_blame<CR>')
-    # map('n', '<leader>hd', '<cmd>Gitsigns diffthis<CR>')
-    # map('n', '<leader>hD', '<cmd>lua require"gitsigns".diffthis("~")<CR>')
     # -- Text object
     # map('o', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
     # map('x', 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 
     keymaps = [
+      {
+        mode = "n";
+        key = "<leader>dc";
+        action = ":tab split<CR>:Gitsigns diffthis vertical=true<CR>";
+        options.silent = true;
+      }
+      {
+        mode = "n";
+        key = "<leader>dp";
+        action = ":tab split<CR>:Gitsigns diffthis ~ vertical=true<CR>";
+        options.silent = true;
+      }
       {
         mode = "n";
         key = "<leader>td";
