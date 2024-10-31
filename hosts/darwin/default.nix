@@ -96,8 +96,8 @@ in
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
         # Special letters input
-        # Conflicts with KeyRepeat
-        ApplePressAndHoldEnabled = false;
+        # Works with general ABC Eng Input, but not with Unicode
+        ApplePressAndHoldEnabled = true;
 
         # 120, 90, 60, 30, 12, 6, 2
         KeyRepeat = 2;
