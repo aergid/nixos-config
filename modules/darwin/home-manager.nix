@@ -64,15 +64,13 @@ in
   # Fully declarative dock using the latest from Nix Store
   local.dock.enable = true;
   local.dock.entries = [
-    { path = "/System/Applications/Photos.app/"; }
-    { path = "/Applications/Slack.app/"; }
-    { path = "/Applications/Telegram.app/"; }
     { path = "/Applications/Firefox.app/"; }
     { path = "/Applications/Vivaldi.app/"; }
+    { path = "/Applications/Telegram.app/"; }
     { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
-    { path = "${pkgs.joplin-desktop}/Applications/Joplin.app/"; }
-    { path = "/Applications/VLC.app/"; }
     { path = "/Applications/Qobuz.app/"; }
+    { path = "/Applications/VLC.app/"; }
+    { path = "/System/Applications/Photos.app/"; }
   #  { path = "/System/Applications/Facetime.app/"; }
   #  { path = "/System/Applications/Messages.app/"; }
   #  { path = "/System/Applications/Music.app/"; }

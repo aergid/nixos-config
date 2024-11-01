@@ -10,7 +10,6 @@ _:
 
   # Communication Tools
   "discord"
-  "slack"
   "telegram"
 
   # Utility Tools
