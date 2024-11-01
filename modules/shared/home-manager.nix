@@ -111,6 +111,11 @@ let name = "aergid";
     ];
   };
 
+  direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
   alacritty = {
     enable = true;
 

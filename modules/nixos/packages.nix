@@ -31,8 +31,6 @@ shared-packages ++ [
   tdesktop # telegram desktop
 
   # Testing and development tools
-  direnv
-
   # Screenshot and recording tools
   flameshot
   simplescreenrecorder
