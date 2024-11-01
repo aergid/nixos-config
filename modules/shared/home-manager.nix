@@ -327,11 +327,11 @@ let name = "aergid";
       bind | split-window -h -c "#{pane_current_path}"
       bind - split-window -v -c "#{pane_current_path}"
 
-      # Move around panes with vim-like bindings (h,j,k,l)
-      bind-key -n M-k select-pane -U
-      bind-key -n M-h select-pane -L
-      bind-key -n M-j select-pane -D
-      bind-key -n M-l select-pane -R
+      # Move around panes
+      bind-key -n M-Left select-pane -L
+      bind-key -n M-Right select-pane -R
+      bind-key -n M-Up select-pane -U
+      bind-key -n M-Down select-pane -D
 
       # Smart pane switching with awareness of Vim splits.
       # This is copy paste from https://github.com/christoomey/vim-tmux-navigator
