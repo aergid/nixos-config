@@ -254,14 +254,27 @@ let name = "aergid";
   tmux = {
     enable = true;
     plugins = with pkgs.tmuxPlugins; [
-      vim-tmux-navigator
-      sensible
+      sensible # sets up sane default bindings
       yank
+      tmux-copycat
+      tmux-open
       prefix-highlight
+
+      {
+        plugin = vim-tmux-navigator;
+        extraConfig = ''
+          set -g @vim_navigator_mapping_left "C-Left C-n"  # use C-n and C-Left
+          set -g @vim_navigator_mapping_right "C-Right C-i"
+          set -g @vim_navigator_mapping_up "C-u"
+          set -g @vim_navigator_mapping_down "C-e"
+          set -g @vim_navigator_mapping_prev ""  # removes the C-\ binding
+        '';
+      }
       {
         plugin = power-theme;
         extraConfig = ''
            set -g @tmux_power_theme 'gold'
+           set -g @tmux_power_prefix_highlight_pos 'LR'
         '';
       }
       {
@@ -273,6 +286,7 @@ let name = "aergid";
           set -g @resurrect-dir '$HOME/.cache/tmux/resurrect'
           set -g @resurrect-capture-pane-contents 'on'
           set -g @resurrect-pane-contents-area 'visible'
+          set -g @resurrect-strategy-nvim 'session'
         '';
       }
       {
@@ -284,9 +298,7 @@ let name = "aergid";
       }
     ];
     terminal = "xterm-256color";
-    prefix = "C-b";
-    escapeTime = 10;
-    historyLimit = 100000;
+    prefix = "C-a";
     extraConfig = ''
       # True color settings
       set -g default-terminal "xterm-256color"
@@ -295,15 +307,11 @@ let name = "aergid";
       set -as terminal-overrides ',*:Setulc=\E[58::2::::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours
       set -as terminal-overrides ',*:Smxx=\E[9m' # strikethrough
 
-
       set -g default-command "${pkgs.fish}/bin/fish"
       set -g default-shell "${pkgs.fish}/bin/fish"
 
       # automatically renumber tmux windows
       set -g renumber-windows on
-
-      # Remove Vim mode delays
-      set -g focus-events on
 
       # Enable full mouse support
       set -g mouse on
@@ -314,44 +322,21 @@ let name = "aergid";
       # -----------------------------------------------------------------------------
       # Key bindings
       # -----------------------------------------------------------------------------
+      # from tmux-plugins/tmux-pain-control
 
-      # Unbind default keys
-      unbind C-b
-      unbind '"'
-      unbind %
+      # window_move_bindings() {
+         bind-key -r "<" swap-window -d -t -1
+         bind-key -r ">" swap-window -d -t +1
+      # }
 
-      # reload config file
-      bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
-
-      # split window and fix path for tmux 1.9
-      bind | split-window -h -c "#{pane_current_path}"
-      bind - split-window -v -c "#{pane_current_path}"
-
-      # Move around panes
-      bind-key -n M-Left select-pane -L
-      bind-key -n M-Right select-pane -R
-      bind-key -n M-Up select-pane -U
-      bind-key -n M-Down select-pane -D
-
-      # Smart pane switching with awareness of Vim splits.
-      # This is copy paste from https://github.com/christoomey/vim-tmux-navigator
-      is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
-      bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h'  'select-pane -L'
-      bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j'  'select-pane -D'
-      bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k'  'select-pane -U'
-      bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l'  'select-pane -R'
-      tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
-      if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
-        "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
-      if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
-        "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
-
-      bind-key -T copy-mode-vi 'C-h' select-pane -L
-      bind-key -T copy-mode-vi 'C-j' select-pane -D
-      bind-key -T copy-mode-vi 'C-k' select-pane -U
-      bind-key -T copy-mode-vi 'C-l' select-pane -R
-      bind-key -T copy-mode-vi 'C-\' select-pane -l
+      # pane_split_bindings() {
+         bind-key "|" split-window -h -c "#{pane_current_path}"
+         bind-key "\\" split-window -fh -c "#{pane_current_path}"
+         bind-key "-" split-window -v -c "#{pane_current_path}"
+         bind-key "_" split-window -fv -c "#{pane_current_path}"
+         bind-key "%" split-window -h -c "#{pane_current_path}"
+         bind-key '"' split-window -v -c "#{pane_current_path}"
+      # }
       '';
     };
 }
