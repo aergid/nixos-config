@@ -16,27 +16,14 @@ in
     bash.enable = true;
     zsh.enable = true;
     fish.enable = true;
-    fish.loginShellInit = ''
-      __nixos_path_fix
-      '';
+    # https://github.com/vic/vix/commit/55e65a18801f6ba9e721144f958f66138a348692#diff-3c5035d49f25df70a261c4d8bc7a8ac9ff07e3945cf23bf5dbc9bfd05ec899bbL62
+    # https://github.com/vic/mk-darwin-system/pull/7
+    # https://github.com/LnL7/nix-darwin/issues/122
+    fish.shellInit = ''
+      fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/${user}/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin
+    '';
   };
-  # see https://github.com/LnL7/nix-darwin/issues/122
-  environment.etc."fish/nixos-env-preinit.fish".text = lib.mkMerge [
-    (lib.mkBefore ''
-      set -g __nixos_path_original $PATH
-      '')
-    (lib.mkAfter ''
-      function __nixos_path_fix -d "fix PATH value"
-      set -l result (string replace '$HOME' "$HOME" $__nixos_path_original)
-      for elt in $PATH
-        if not contains -- $elt $result
-          set -a result $elt
-        end
-      end
-      set -g PATH $result
-      end
-      '')
-  ];
+
   environment.shells = with pkgs; [ bashInteractive fish zsh ];
 
   # Auto upgrade nix package and the daemon service.

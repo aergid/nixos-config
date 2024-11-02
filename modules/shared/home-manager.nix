@@ -2,7 +2,8 @@
 
 let name = "aergid";
     user = "ksanteen";
-    email = "develer@gmail.com"; in
+    email = "develer@gmail.com";
+in
 {
   # Shared shell configuration
   zsh = {
@@ -253,20 +254,19 @@ let name = "aergid";
 
   tmux = {
     enable = true;
+    shell = "${pkgs.fish}/bin/fish";
     plugins = with pkgs.tmuxPlugins; [
       sensible # sets up sane default bindings
       yank
-      tmux-copycat
-      tmux-open
-      prefix-highlight
-
+      copycat
+      open
       {
         plugin = vim-tmux-navigator;
         extraConfig = ''
-          set -g @vim_navigator_mapping_left "C-Left C-n"  # use C-n and C-Left
-          set -g @vim_navigator_mapping_right "C-Right C-i"
-          set -g @vim_navigator_mapping_up "C-u"
-          set -g @vim_navigator_mapping_down "C-e"
+          set -g @vim_navigator_mapping_left "C-Left"
+          set -g @vim_navigator_mapping_right "C-Right"
+          set -g @vim_navigator_mapping_up "C-Up"
+          set -g @vim_navigator_mapping_down "C-Down"
           set -g @vim_navigator_mapping_prev ""  # removes the C-\ binding
         '';
       }
@@ -279,30 +279,35 @@ let name = "aergid";
       }
       {
         plugin = resurrect; # Used by tmux-continuum
-
         # Use XDG data directory
         # https://github.com/tmux-plugins/tmux-resurrect/issues/348
         extraConfig = ''
-          set -g @resurrect-dir '$HOME/.cache/tmux/resurrect'
           set -g @resurrect-capture-pane-contents 'on'
           set -g @resurrect-pane-contents-area 'visible'
           set -g @resurrect-strategy-nvim 'session'
+          set -g @resurrect-strategy-vim 'session'
+          set -g @resurrect-dir $HOME/.cache/tmux/resurrect
+          set -g @resurrect-processes '"~nvim"'
         '';
       }
       {
         plugin = continuum;
         extraConfig = ''
           set -g @continuum-restore 'on'
-          set -g @continuum-save-interval '5' # minutes
+          set -g @continuum-boot 'on'
+          set -g @continuum-save-interval '10' # minutes
         '';
       }
+      prefix-highlight
     ];
     terminal = "xterm-256color";
     prefix = "C-a";
     extraConfig = ''
+      set -g default-command ${pkgs.fish}/bin/fish
+      set -g default-shell ${pkgs.fish}/bin/fish
+
       # True color settings
-      set -g default-terminal "xterm-256color"
-      set -ag terminal-overrides ",xterm-256color:Tc"
+      set -ag terminal-overrides ",$TERM:Tc"
       set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
       set -as terminal-overrides ',*:Setulc=\E[58::2::::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours
       set -as terminal-overrides ',*:Smxx=\E[9m' # strikethrough
@@ -324,19 +329,19 @@ let name = "aergid";
       # -----------------------------------------------------------------------------
       # from tmux-plugins/tmux-pain-control
 
-      # window_move_bindings() {
+      # window_move_bindings
          bind-key -r "<" swap-window -d -t -1
          bind-key -r ">" swap-window -d -t +1
-      # }
+      #
 
-      # pane_split_bindings() {
+      # pane_split_bindings
          bind-key "|" split-window -h -c "#{pane_current_path}"
          bind-key "\\" split-window -fh -c "#{pane_current_path}"
          bind-key "-" split-window -v -c "#{pane_current_path}"
          bind-key "_" split-window -fv -c "#{pane_current_path}"
          bind-key "%" split-window -h -c "#{pane_current_path}"
          bind-key '"' split-window -v -c "#{pane_current_path}"
-      # }
+      #
       '';
     };
 }
