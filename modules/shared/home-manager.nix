@@ -256,7 +256,13 @@ in
     enable = true;
     shell = "${pkgs.fish}/bin/fish";
     plugins = with pkgs.tmuxPlugins; [
-      sensible # sets up sane default bindings
+      {
+        plugin = sensible; # sets up sane default bindings
+        extraConfig = ''
+          set -g default-command "${pkgs.fish}/bin/fish"
+          set -g default-shell "${pkgs.fish}/bin/fish"
+        '';
+      }
       yank
       copycat
       open
@@ -287,7 +293,7 @@ in
           set -g @resurrect-strategy-nvim 'session'
           set -g @resurrect-strategy-vim 'session'
           set -g @resurrect-dir $HOME/.cache/tmux/resurrect
-          set -g @resurrect-processes '"~nvim"'
+          set -g @resurrect-processes 'nvim'
         '';
       }
       {
@@ -303,17 +309,11 @@ in
     terminal = "xterm-256color";
     prefix = "C-a";
     extraConfig = ''
-      set -g default-command ${pkgs.fish}/bin/fish
-      set -g default-shell ${pkgs.fish}/bin/fish
-
       # True color settings
       set -ag terminal-overrides ",$TERM:Tc"
       set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
       set -as terminal-overrides ',*:Setulc=\E[58::2::::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours
       set -as terminal-overrides ',*:Smxx=\E[9m' # strikethrough
-
-      set -g default-command "${pkgs.fish}/bin/fish"
-      set -g default-shell "${pkgs.fish}/bin/fish"
 
       # automatically renumber tmux windows
       set -g renumber-windows on
