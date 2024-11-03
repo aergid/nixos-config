@@ -3,6 +3,15 @@
 let name = "aergid";
     user = "ksanteen";
     email = "develer@gmail.com";
+    vim-tmux-navigator-fresh = pkgs.tmuxPlugins.vim-tmux-navigator.overrideAttrs ( _: {
+      src = pkgs.fetchFromGitHub {
+        owner = "christoomey";
+        repo = "vim-tmux-navigator";
+        rev = "2d8bc8176af90935fb918526b0fde73d6ceba0df";
+        sha256 = "sha256-2ObHLgdrv7UftZbaICPEpftEZMY0sTqyPgK1x9rQS9Q=";
+      };
+      version = "unstable-2024-11-03";
+    });
 in
 {
   # Shared shell configuration
@@ -267,7 +276,7 @@ in
       copycat
       open
       {
-        plugin = vim-tmux-navigator;
+        plugin = vim-tmux-navigator-fresh;
         extraConfig = ''
           set -g @vim_navigator_mapping_left "C-Left"
           set -g @vim_navigator_mapping_right "C-Right"
