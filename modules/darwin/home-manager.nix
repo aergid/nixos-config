@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, nixvim, ... }:
+{ config, pkgs, lib, home-manager, ... }:
 
 let
   user = "ksanteen";
@@ -40,13 +40,9 @@ in
   home-manager = {
     useGlobalPkgs = true;
     users.${user} = { pkgs, config, lib, ... }:{
-      imports = [
-        nixvim.homeManagerModules.nixvim
-        ../shared/nixvim
-      ];
       home = {
         enableNixpkgsReleaseCheck = false;
-        packages = pkgs.callPackage ./packages.nix {};
+        packages = pkgs.callPackage ./packages.nix { inherit pkgs; };
         file = lib.mkMerge [
           sharedFiles
           additionalFiles

@@ -26,13 +26,13 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
-      inputs.nixpkgs.follows = "nixpkgs";
+    mynixvim = {
+      url = "github:aergid/nixvimbundle";
+      # This tells Nix to track the default branch (usually main or master)
+      flake = true;
     };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, nixvim } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, mynixvim, disko } @inputs:
     let
       user = "ksanteen";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -76,13 +76,18 @@
       devShells = forAllSystems devShell;
       apps = nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
 
-      darwinConfigurations = let user = "ksanteen"; in {
+      darwinConfigurations = let user = "ksanteen"; system = "aarch64-darwin"; in {
         macos = darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
+          system = system;
           specialArgs = inputs;
           modules = [
             home-manager.darwinModules.home-manager
             nix-homebrew.darwinModules.nix-homebrew
+            {
+              nixpkgs.overlays = [(self: super: {
+                  mynixvim = mynixvim.packages.${system}.default;
+              })];
+            }
             {
               nix-homebrew = {
                 enable = true;
@@ -106,7 +111,6 @@
         specialArgs = inputs;
         modules = [
           disko.nixosModules.disko
-          nixvim.nixosModules.nixvim
           home-manager.nixosModules.home-manager {
             home-manager = {
               useGlobalPkgs = true;
@@ -115,7 +119,6 @@
             };
           }
           ./hosts/nixos
-          ./modules/shared/neovim
         ];
      });
   };
