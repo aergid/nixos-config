@@ -25,7 +25,6 @@ in
     package = pkgs.yazi;
     settings = {
       manager = {
-        show_hidden = true;
         ratio = [ 1 2 4 ];
       };
     };
@@ -33,6 +32,15 @@ in
       flavor = {
         use = "catppuccin-mocha";
       };
+    };
+    keymap = {
+      manager.prepend_keymap = [
+        { run = "close"; on = [ "<C-q>" ];  }
+        { run = "seek -5"; on = [ "<A-Up>" ]; desc = "Scroll up preview"; }
+        { run = "seek -5"; on = [ "<C-u>" ]; desc = "Scroll up preview"; }
+        { run = "seek 5"; on = [ "<C-d>" ]; desc = "Scroll down preview"; }
+        { run = "seek 5"; on = [ "<A-Down>" ]; desc = "Scroll down preview"; }
+      ];
     };
     flavors = {
       catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi/";
@@ -129,6 +137,16 @@ in
     shellAliases = {
       gc = "git commit";
       gs = "git status";
+    };
+    functions = {
+      y = ''
+        set tmp (mktemp -t "yazi-cwd.XXXXXX")
+        yazi $argv --cwd-file="$tmp"
+        if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+          builtin cd -- "$cwd"
+        end
+        rm -f -- "$tmp"
+      '';
     };
     plugins = with pkgs.fishPlugins; [
       { name = "autopair"; src = autopair.src; }
