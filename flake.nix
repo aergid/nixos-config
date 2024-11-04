@@ -26,13 +26,15 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    yazi.url = "github:sxyazi/yazi";
+
     mynixvim = {
       url = "github:aergid/nixvimbundle";
-      # This tells Nix to track the default branch (usually main or master)
       flake = true;
     };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, mynixvim, disko } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs,
+    yazi, mynixvim, disko } @inputs:
     let
       user = "ksanteen";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -84,9 +86,12 @@
             home-manager.darwinModules.home-manager
             nix-homebrew.darwinModules.nix-homebrew
             {
-              nixpkgs.overlays = [(self: super: {
+              nixpkgs.overlays = [
+                (self: super: {
                   mynixvim = mynixvim.packages.${system}.default;
-              })];
+                })
+                yazi.overlays.default
+              ];
             }
             {
               nix-homebrew = {

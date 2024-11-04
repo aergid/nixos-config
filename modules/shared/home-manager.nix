@@ -12,8 +12,36 @@ let name = "aergid";
       };
       version = "unstable-2024-11-03";
     });
+    yazi-flavors = pkgs.fetchFromGitHub {
+      owner = "yazi-rs";
+      repo = "flavors";
+      rev = "d504f70dd5e81e4f623004a26ac0269ddc5a5820";
+      sha256 = "sha256-Tpu/BLs/P/5KipggGQM8je1BpLpEDVBSAb5qZPXea1k=";
+    };
 in
 {
+  yazi = {
+    enable = true;
+    package = pkgs.yazi;
+    settings = {
+      manager = {
+        show_hidden = true;
+        ratio = [ 1 2 4 ];
+      };
+    };
+    theme = {
+      flavor = {
+        use = "catppuccin-mocha";
+      };
+    };
+    flavors = {
+      catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi/";
+    };
+  };
+  zoxide = {
+    enable = true;
+  };
+
   # Shared shell configuration
   zsh = {
     enable = true;
@@ -108,7 +136,6 @@ in
       { name = "forgit"; src = forgit.src; }
       { name = "grc"; src = grc.src; }
       { name = "sponge"; src = sponge.src; }
-      { name = "z"; src = z.src; }
       {
         name = "fish-exa"; #TODO derive with proper install/uninstall
         src = pkgs.fetchFromGitHub {
