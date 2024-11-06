@@ -311,6 +311,14 @@ in
     shell = "${pkgs.fish}/bin/fish";
     plugins = with pkgs.tmuxPlugins; [
       {
+        plugin = t-smart-tmux-session-manager;
+        extraConfig = ''
+          set -g @t-bind "t"
+          set -g @t-fzf-prompt '  '
+          set -g @t-fzf-find-binding 'ctrl-f:change-prompt(  )+reload(fd -H -d 3 -t d . ~)'
+        '';
+      }
+      {
         plugin = sensible; # sets up sane default bindings
         extraConfig = ''
           set -g default-command "${pkgs.fish}/bin/fish"
@@ -363,12 +371,9 @@ in
     terminal = "xterm-256color";
     prefix = "C-a";
     extraConfig = ''
-      # True color settings
-      set -ag terminal-overrides ",$TERM:Tc"
-      set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
-      set -as terminal-overrides ',*:Setulc=\E[58::2::::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours
-      set -as terminal-overrides ',*:Smxx=\E[9m' # strikethrough
-
+      # -----------------------------------------------------------------------------
+      # sessions related
+      # -----------------------------------------------------------------------------
       # automatically renumber tmux windows
       set -g renumber-windows on
 
@@ -378,9 +383,24 @@ in
       # make window/pane index start with 1
       setw -g pane-base-index 1
 
+
+      # don't exit from tmux when closing a session
+      set -g detach-on-destroy off
+
+      # -----------------------------------------------------------------------------
+      # True color settings
+      # -----------------------------------------------------------------------------
+      set -ag terminal-overrides ",$TERM:Tc"
+      set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
+      set -as terminal-overrides ',*:Setulc=\E[58::2::::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours
+      set -as terminal-overrides ',*:Smxx=\E[9m' # strikethrough
+
       # -----------------------------------------------------------------------------
       # Key bindings
       # -----------------------------------------------------------------------------
+      # skip "kill-pane 1? (y/n)" prompt
+      bind-key x kill-pane
+
       # from tmux-plugins/tmux-pain-control
 
       # window_move_bindings
