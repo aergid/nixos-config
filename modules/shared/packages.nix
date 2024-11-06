@@ -75,7 +75,7 @@ with pkgs; [
   jq
   lazydocker
   lazygit
-  ncdu
+  ncdu_1
   ntfs3g
   p7zip
   ripgrep
@@ -85,7 +85,7 @@ with pkgs; [
   zsh-powerlevel10k
 
   # Python packages
-  python39
-  python39Packages.virtualenv # globally install virtualenv
-  python39Packages.pygments
+  python312
+  python312Packages.virtualenv # globally install virtualenv
+  python312Packages.pygments
 ]
