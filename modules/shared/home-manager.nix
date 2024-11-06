@@ -181,6 +181,26 @@ in
 
       env.term = "xterm-256color";
 
+      keyboard.bindings = [
+  # - { key: O, mods: Command, chars: "\x02u" } # open URLs 'joshmedeski/tmux-fzf-url'
+        { key = "S";    mods = "Command"; chars = "\\u0001t"; } # open t-tmux session manager
+        { key = "T";    mods = "Command"; chars = "\\u0001c"; } # create a new tmux window
+        { key = "W";    mods = "Command"; chars = "\\u0001x"; } # kill the current pane
+        { key = "Z";    mods = "Command"; chars = "\\u0001z"; } # toggle zoom state of the current tmux pane
+        { key = "Comma";mods = "Command"; chars = "\\u0001,"; } # rename the current tmux window
+        { key = "Period";mods = "Command";chars = "\\u0001:"; } # start ex mode
+        { key = "L";    mods = "Command"; chars = "\\u0001l"; } # switch to the last tmux session
+        { key = "Key1"; mods = "Command"; chars = "\\u00011"; } # select tmux window 1
+        { key = "Key2"; mods = "Command"; chars = "\\u00012"; } #                ... 2
+        { key = "Key3"; mods = "Command"; chars = "\\u00013"; } #                ... 3
+        { key = "Key4"; mods = "Command"; chars = "\\u00014"; } #                ... 4
+        { key = "Key5"; mods = "Command"; chars = "\\u00015"; } #                ... 5
+        { key = "Key6"; mods = "Command"; chars = "\\u00016"; } #                ... 6
+        { key = "Key7"; mods = "Command"; chars = "\\u00017"; } #                ... 7
+        { key = "Key8"; mods = "Command"; chars = "\\u00018"; } #                ... 8
+        { key = "Key9"; mods = "Command"; chars = "\\u00019"; } #                ... 9
+      ];
+
       window = {
         option_as_alt = "Both"; # | "OnlyRight" | "Both" | "None" # (macos only)
         startup_mode = "Maximized";
@@ -316,6 +336,7 @@ in
           set -g @t-bind "t"
           set -g @t-fzf-prompt '  '
           set -g @t-fzf-find-binding 'ctrl-f:change-prompt(  )+reload(fd -H -d 3 -t d . ~)'
+          set -g @t-fzf-default-results 'sessions'
         '';
       }
       {
