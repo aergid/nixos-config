@@ -189,7 +189,9 @@ in
         { key = "Z";    mods = "Command"; chars = "\\u0001z"; } # toggle zoom state of the current tmux pane
         { key = "Comma";mods = "Command"; chars = "\\u0001,"; } # rename the current tmux window
         { key = "Period";mods = "Command";chars = "\\u0001:"; } # start ex mode
-        { key = "L";    mods = "Command"; chars = "\\u0001l"; } # switch to the last tmux session
+        { key = "L";    mods = "Command"; chars = "\\u0001l"; } # switch to the last tmux window
+        { key = "N";    mods = "Command"; chars = "\\u0001n"; } # switch to the next tmux window
+        { key = "P";    mods = "Command"; chars = "\\u0001p"; } # switch to the prev tmux window
         { key = "Key1"; mods = "Command"; chars = "\\u00011"; } # select tmux window 1
         { key = "Key2"; mods = "Command"; chars = "\\u00012"; } #                ... 2
         { key = "Key3"; mods = "Command"; chars = "\\u00013"; } #                ... 3
