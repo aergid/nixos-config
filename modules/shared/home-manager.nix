@@ -373,8 +373,8 @@ in
         extraConfig = ''
           set -g @resurrect-capture-pane-contents 'on'
           set -g @resurrect-pane-contents-area 'visible'
-          set -g @resurrect-strategy-nvim 'session'
-          set -g @resurrect-strategy-vim 'session'
+          # set -g @resurrect-strategy-nvim 'session'
+          # set -g @resurrect-strategy-vim 'session'
           set -g @resurrect-dir $HOME/.cache/tmux/resurrect
           set -g @resurrect-processes 'nvim'
         '';
@@ -395,18 +395,19 @@ in
       # -----------------------------------------------------------------------------
       # sessions related
       # -----------------------------------------------------------------------------
-      # automatically renumber tmux windows
+      # Start windows and panes index at 1, not 0.
+      set -g base-index 1
+      setw -g pane-base-index 1
+      # Ensure window index numbers get reordered on delete.
       set -g renumber-windows on
 
       # Enable full mouse support
       set -g mouse on
 
-      # make window/pane index start with 1
-      setw -g pane-base-index 1
-
-
       # don't exit from tmux when closing a session
       set -g detach-on-destroy off
+
+      set -g status-justify left
 
       # -----------------------------------------------------------------------------
       # True color settings
