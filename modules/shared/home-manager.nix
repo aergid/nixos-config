@@ -27,6 +27,20 @@ in
       manager = {
         ratio = [ 1 2 4 ];
       };
+      plugin = {
+        # not working with yazi transition to 0.4
+        # prepend_previewers = [
+        #   { name = "*/"; run = "eza-preview"; }
+        # ];
+      };
+    };
+    plugins = {
+      eza-preview = pkgs.fetchFromGitHub {
+        owner = "sharklasers996";
+        repo = "eza-preview.yazi";
+        rev = "7ca4c2558e17bef98cacf568f10ec065a1e5fb9b";
+        sha256 = "sha256-ncOOCj53wXPZvaPSoJ5LjaWSzw1omHadKDrXdIb7G5U=";
+      };
     };
     theme = {
       flavor = {
@@ -40,6 +54,8 @@ in
         { run = "seek -5"; on = [ "<C-u>" ]; desc = "Scroll up preview"; }
         { run = "seek 5"; on = [ "<C-d>" ]; desc = "Scroll down preview"; }
         { run = "seek 5"; on = [ "<A-Down>" ]; desc = "Scroll down preview"; }
+      	{ run = "plugin eza-preview"; on = "E"; desc = "Toggle tree/list dir preview"; }
+
       ];
     };
     flavors = {
