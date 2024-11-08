@@ -369,11 +369,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1731014368,
-        "narHash": "sha256-ljQI812WST0A6HNAgtGwqpBA2QcW8SBtI9wyJvdzvQc=",
+        "lastModified": 1731087470,
+        "narHash": "sha256-tnAnHjYUe7hwwCGlc0C/PqyeZTUio+IRh0HmqLPt2R0=",
         "owner": "aergid",
         "repo": "nixvimbundle",
-        "rev": "461bcbba3a9d65e5020d3449e0d3bd722f41a99c",
+        "rev": "5eda6f175f0e018ad3cbf9d3b9f98e0fcf5bf3c3",
         "type": "github"
       },
       "original": {
