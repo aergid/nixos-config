@@ -5,7 +5,7 @@ let
   ]);
 in
 with pkgs; [
-  mynixvim
+  onyxvim
   # General packages for development and system management
   act
   alacritty

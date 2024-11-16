@@ -29,13 +29,13 @@
     };
     yazi.url = "github:sxyazi/yazi";
 
-    mynixvim = {
-      url = "github:aergid/nixvimbundle";
+    onyxvim = {
+      url = "github:aergid/onyxvim";
       flake = true;
     };
   };
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs,
-    yazi, mynixvim, disko } @inputs:
+    yazi, onyxvim, disko } @inputs:
     let
       user = "ksanteen";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -89,7 +89,7 @@
             {
               nixpkgs.overlays = [
                 (self: super: {
-                  mynixvim = mynixvim.packages.${system}.default;
+                  onyxvim = onyxvim.packages.${system}.default;
                 })
                 yazi.overlays.default
               ];
