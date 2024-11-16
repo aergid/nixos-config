@@ -30,4 +30,5 @@ _:
   "firefox"
   "vivaldi"
   # AI
+  "zoom"
 ]

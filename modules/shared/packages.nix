@@ -44,7 +44,6 @@ with pkgs; [
   docker-compose
 
   flyctl
-  ngrok
   tflint
 
   # Media-related packages
