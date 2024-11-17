@@ -29,21 +29,31 @@
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
+  hardware.pulseaudio.enable = false;
 
 
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
   # Video support
-  hardware.graphics = {
+  hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      vaapiVdpau
-      libvdpau-va-gl
+      # vpl-gpu-rt          # for newer GPUs on NixOS >24.05 or unstable
+      # onevpl-intel-gpu  # for newer GPUs on NixOS <= 24.05
+      intel-media-sdk   # for older GPUs
     ];
   };
+
+  # hardware.graphics = {
+  #   enable = true;
+  #   extraPackages = with pkgs; [
+  #     intel-media-driver # LIBVA_DRIVER_NAME=iHD
+  #     intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+  #     vaapiVdpau
+  #     libvdpau-va-gl
+  #   ];
+  # };
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "i965"; };
 
 
