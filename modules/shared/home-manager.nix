@@ -33,6 +33,7 @@ in {
       preview = {
         max_width = 1024;
         max_height = 1024;
+        image_quaility = 90;
       };
       plugin = {
         # not working with yazi transition to 0.4
