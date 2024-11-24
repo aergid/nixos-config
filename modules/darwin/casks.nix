@@ -1,6 +1,4 @@
-_:
-
-[
+_: [
   # Development Tools
   "homebrew/cask/docker"
   "postico"
@@ -19,7 +17,8 @@ _:
 
   # Entertainment Tools
   "vlc"
-  "qobuz"
+  "deezer"
+  "tidal"
   "qview"
   "eqmac"
 

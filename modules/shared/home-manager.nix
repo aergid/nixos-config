@@ -1,31 +1,38 @@
-{ config, pkgs, lib, ... }:
-
-let name = "aergid";
-    user = "ksanteen";
-    email = "develer@gmail.com";
-    vim-tmux-navigator-fresh = pkgs.tmuxPlugins.vim-tmux-navigator.overrideAttrs ( _: {
-      src = pkgs.fetchFromGitHub {
-        owner = "christoomey";
-        repo = "vim-tmux-navigator";
-        rev = "2d8bc8176af90935fb918526b0fde73d6ceba0df";
-        sha256 = "sha256-2ObHLgdrv7UftZbaICPEpftEZMY0sTqyPgK1x9rQS9Q=";
-      };
-      version = "unstable-2024-11-03";
-    });
-    yazi-flavors = pkgs.fetchFromGitHub {
-      owner = "yazi-rs";
-      repo = "flavors";
-      rev = "d504f70dd5e81e4f623004a26ac0269ddc5a5820";
-      sha256 = "sha256-Tpu/BLs/P/5KipggGQM8je1BpLpEDVBSAb5qZPXea1k=";
-    };
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  name = "aergid";
+  user = "ksanteen";
+  email = "develer@gmail.com";
+  vim-tmux-navigator-fresh = pkgs.tmuxPlugins.vim-tmux-navigator.overrideAttrs (_: {
+    src = pkgs.fetchFromGitHub {
+      owner = "christoomey";
+      repo = "vim-tmux-navigator";
+      rev = "2d8bc8176af90935fb918526b0fde73d6ceba0df";
+      sha256 = "sha256-2ObHLgdrv7UftZbaICPEpftEZMY0sTqyPgK1x9rQS9Q=";
+    };
+    version = "unstable-2024-11-03";
+  });
+  yazi-flavors = pkgs.fetchFromGitHub {
+    owner = "yazi-rs";
+    repo = "flavors";
+    rev = "d504f70dd5e81e4f623004a26ac0269ddc5a5820";
+    sha256 = "sha256-Tpu/BLs/P/5KipggGQM8je1BpLpEDVBSAb5qZPXea1k=";
+  };
+in {
   yazi = {
     enable = true;
     package = pkgs.yazi;
     settings = {
       manager = {
-        ratio = [ 1 2 4 ];
+        ratio = [1 2 4];
+      };
+      preview = {
+        max_width = 1024;
+        max_height = 1024;
       };
       plugin = {
         # not working with yazi transition to 0.4
@@ -49,13 +56,35 @@ in
     };
     keymap = {
       manager.prepend_keymap = [
-        { run = "close"; on = [ "<C-q>" ];  }
-        { run = "seek -5"; on = [ "<A-Up>" ]; desc = "Scroll up preview"; }
-        { run = "seek -5"; on = [ "<C-u>" ]; desc = "Scroll up preview"; }
-        { run = "seek 5"; on = [ "<C-d>" ]; desc = "Scroll down preview"; }
-        { run = "seek 5"; on = [ "<A-Down>" ]; desc = "Scroll down preview"; }
-      	{ run = "plugin eza-preview"; on = "E"; desc = "Toggle tree/list dir preview"; }
-
+        {
+          run = "close";
+          on = ["<C-q>"];
+        }
+        {
+          run = "seek -5";
+          on = ["<A-Up>"];
+          desc = "Scroll up preview";
+        }
+        {
+          run = "seek -5";
+          on = ["<C-u>"];
+          desc = "Scroll up preview";
+        }
+        {
+          run = "seek 5";
+          on = ["<C-d>"];
+          desc = "Scroll down preview";
+        }
+        {
+          run = "seek 5";
+          on = ["<A-Down>"];
+          desc = "Scroll down preview";
+        }
+        {
+          run = "plugin eza-preview";
+          on = "E";
+          desc = "Toggle tree/list dir preview";
+        }
       ];
     };
     flavors = {
@@ -115,7 +144,7 @@ in
 
   git = {
     enable = true;
-    ignores = [ "*.swp" ];
+    ignores = ["*.swp"];
     userName = name;
     userEmail = email;
     lfs = {
@@ -131,7 +160,6 @@ in
       rebase.autoStash = true;
     };
   };
-
 
   fzf = {
     enable = true;
@@ -165,11 +193,26 @@ in
       '';
     };
     plugins = with pkgs.fishPlugins; [
-      { name = "autopair"; src = autopair.src; }
-      { name = "bobthefish"; src = bobthefish.src; }
-      { name = "forgit"; src = forgit.src; }
-      { name = "grc"; src = grc.src; }
-      { name = "sponge"; src = sponge.src; }
+      {
+        name = "autopair";
+        src = autopair.src;
+      }
+      {
+        name = "bobthefish";
+        src = bobthefish.src;
+      }
+      {
+        name = "forgit";
+        src = forgit.src;
+      }
+      {
+        name = "grc";
+        src = grc.src;
+      }
+      {
+        name = "sponge";
+        src = sponge.src;
+      }
       {
         name = "fish-exa"; #TODO derive with proper install/uninstall
         src = pkgs.fetchFromGitHub {
@@ -198,25 +241,97 @@ in
       env.term = "xterm-256color";
 
       keyboard.bindings = [
-  # - { key: O, mods: Command, chars: "\x02u" } # open URLs 'joshmedeski/tmux-fzf-url'
-        { key = "S";    mods = "Command"; chars = "\\u0001t"; } # open t-tmux session manager
-        { key = "T";    mods = "Command"; chars = "\\u0001c"; } # create a new tmux window
-        { key = "W";    mods = "Command"; chars = "\\u0001x"; } # kill the current pane
-        { key = "Z";    mods = "Command"; chars = "\\u0001z"; } # toggle zoom state of the current tmux pane
-        { key = "Comma";mods = "Command"; chars = "\\u0001,"; } # rename the current tmux window
-        { key = "Period";mods = "Command";chars = "\\u0001:"; } # start ex mode
-        { key = "L";    mods = "Command"; chars = "\\u0001l"; } # switch to the last tmux window
-        { key = "N";    mods = "Command"; chars = "\\u0001n"; } # switch to the next tmux window
-        { key = "P";    mods = "Command"; chars = "\\u0001p"; } # switch to the prev tmux window
-        { key = "Key1"; mods = "Command"; chars = "\\u00011"; } # select tmux window 1
-        { key = "Key2"; mods = "Command"; chars = "\\u00012"; } #                ... 2
-        { key = "Key3"; mods = "Command"; chars = "\\u00013"; } #                ... 3
-        { key = "Key4"; mods = "Command"; chars = "\\u00014"; } #                ... 4
-        { key = "Key5"; mods = "Command"; chars = "\\u00015"; } #                ... 5
-        { key = "Key6"; mods = "Command"; chars = "\\u00016"; } #                ... 6
-        { key = "Key7"; mods = "Command"; chars = "\\u00017"; } #                ... 7
-        { key = "Key8"; mods = "Command"; chars = "\\u00018"; } #                ... 8
-        { key = "Key9"; mods = "Command"; chars = "\\u00019"; } #                ... 9
+        # - { key: O, mods: Command, chars: "\x02u" } # open URLs 'joshmedeski/tmux-fzf-url'
+        {
+          key = "S";
+          mods = "Command";
+          chars = "\\u0001t";
+        } # open t-tmux session manager
+        {
+          key = "T";
+          mods = "Command";
+          chars = "\\u0001c";
+        } # create a new tmux window
+        {
+          key = "W";
+          mods = "Command";
+          chars = "\\u0001x";
+        } # kill the current pane
+        {
+          key = "Z";
+          mods = "Command";
+          chars = "\\u0001z";
+        } # toggle zoom state of the current tmux pane
+        {
+          key = "Comma";
+          mods = "Command";
+          chars = "\\u0001,";
+        } # rename the current tmux window
+        {
+          key = "Period";
+          mods = "Command";
+          chars = "\\u0001:";
+        } # start ex mode
+        {
+          key = "L";
+          mods = "Command";
+          chars = "\\u0001l";
+        } # switch to the last tmux window
+        {
+          key = "N";
+          mods = "Command";
+          chars = "\\u0001n";
+        } # switch to the next tmux window
+        {
+          key = "P";
+          mods = "Command";
+          chars = "\\u0001p";
+        } # switch to the prev tmux window
+        {
+          key = "Key1";
+          mods = "Command";
+          chars = "\\u00011";
+        } # select tmux window 1
+        {
+          key = "Key2";
+          mods = "Command";
+          chars = "\\u00012";
+        } #                ... 2
+        {
+          key = "Key3";
+          mods = "Command";
+          chars = "\\u00013";
+        } #                ... 3
+        {
+          key = "Key4";
+          mods = "Command";
+          chars = "\\u00014";
+        } #                ... 4
+        {
+          key = "Key5";
+          mods = "Command";
+          chars = "\\u00015";
+        } #                ... 5
+        {
+          key = "Key6";
+          mods = "Command";
+          chars = "\\u00016";
+        } #                ... 6
+        {
+          key = "Key7";
+          mods = "Command";
+          chars = "\\u00017";
+        } #                ... 7
+        {
+          key = "Key8";
+          mods = "Command";
+          chars = "\\u00018";
+        } #                ... 8
+        {
+          key = "Key9";
+          mods = "Command";
+          chars = "\\u00019";
+        } #                ... 9
       ];
 
       window = {
@@ -324,6 +439,22 @@ in
     };
   };
 
+  wezterm = {
+    enable = true;
+    extraConfig = ''
+      local wezterm = require 'wezterm'
+      return {
+        font = wezterm.font("MesloLGS NF"),
+        font_size = 14.0,
+        color_scheme = 'Catppuccin Mocha (Gogh)',
+        hide_tab_bar_if_only_one_tab = true,
+        keys = {
+          {key="n", mods="SHIFT|CTRL", action="ToggleFullScreen"},
+        }
+      }
+    '';
+  };
+
   ssh = {
     enable = true;
 
@@ -380,8 +511,8 @@ in
       {
         plugin = power-theme;
         extraConfig = ''
-           set -g @tmux_power_theme 'gold'
-           set -g @tmux_power_prefix_highlight_pos 'LR'
+          set -g @tmux_power_theme 'gold'
+          set -g @tmux_power_prefix_highlight_pos 'LR'
         '';
       }
       {
@@ -436,6 +567,13 @@ in
       set -as terminal-overrides ',*:Smxx=\E[9m' # strikethrough
 
       # -----------------------------------------------------------------------------
+      # Yazi Images Previews require this
+      # -----------------------------------------------------------------------------
+      set -g allow-passthrough all
+      set -ga update-environment TERM
+      set -ga update-environment TERM_PROGRAM
+
+      # -----------------------------------------------------------------------------
       # Key bindings
       # -----------------------------------------------------------------------------
       # skip "kill-pane 1? (y/n)" prompt
@@ -456,6 +594,6 @@ in
          bind-key "%" split-window -h -c "#{pane_current_path}"
          bind-key '"' split-window -v -c "#{pane_current_path}"
       #
-      '';
-    };
+    '';
+  };
 }

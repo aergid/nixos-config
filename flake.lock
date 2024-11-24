@@ -667,11 +667,11 @@
         "unstable": "unstable"
       },
       "locked": {
-        "lastModified": 1731854843,
-        "narHash": "sha256-huZ4e71hRQWkqi3fXrLYtzZp9njMYsjq6265hRKl7sc=",
+        "lastModified": 1732055530,
+        "narHash": "sha256-5jI0Ou9qvTaL8ucLyvryJtnd48l79EOQaJux9RpGnNM=",
         "owner": "aergid",
         "repo": "onyxvim",
-        "rev": "4fa830131b8f0e56611acc292bcec24373a76e68",
+        "rev": "d8b95e5a56725507e51eecbec62e445e70a3c04c",
         "type": "github"
       },
       "original": {
