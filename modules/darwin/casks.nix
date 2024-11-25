@@ -17,7 +17,6 @@ _: [
 
   # Entertainment Tools
   "vlc"
-  "deezer"
   "tidal"
   "qview"
   "eqmac"

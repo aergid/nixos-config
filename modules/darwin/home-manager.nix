@@ -82,7 +82,7 @@ in {
     {path = "/Applications/Telegram.app/";}
     # {path = "${pkgs.alacritty}/Applications/Alacritty.app/";}
     {path = "${pkgs.wezterm}/Applications/WezTerm.app/";}
-    {path = "/Applications/Deezer.app/";}
+    {path = "/Applications/Tidal.app/";}
     {path = "/Applications/VLC.app/";}
     {path = "/System/Applications/Photos.app/";}
     #  { path = "/System/Applications/Facetime.app/"; }
