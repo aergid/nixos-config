@@ -442,18 +442,126 @@ in {
 
   wezterm = {
     enable = true;
-    extraConfig = ''
-      local wezterm = require 'wezterm'
-      return {
-        font = wezterm.font("MesloLGS NF"),
-        font_size = 14.0,
-        color_scheme = 'Catppuccin Mocha (Gogh)',
-        hide_tab_bar_if_only_one_tab = true,
-        keys = {
-          {key="n", mods="SHIFT|CTRL", action="ToggleFullScreen"},
+    extraConfig =
+      # lua
+      ''
+        local wezterm = require 'wezterm'
+        local act = wezterm.action
+        return {
+          font = wezterm.font("MesloLGS NF"),
+          font_size = 14.0,
+          color_scheme = 'Catppuccin Mocha (Gogh)',
+          hide_tab_bar_if_only_one_tab = true,
+          keys = {
+            {key="n", mods="SHIFT|CTRL", action="ToggleFullScreen"},
+            {
+              key = 's', mods="CMD", -- t-mux session manager
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = 't' },
+              },
+            },
+            {
+              key = 't', mods="CMD", -- new t-mux window
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = 'c' },
+              },
+            },
+            {
+              key = 'w', mods="CMD", -- kill t-mux pane
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = 'x' },
+              },
+            },
+            {
+              key = 'z', mods="CMD", -- zoom t-mux pane
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = 'z' },
+              },
+            },
+            {
+              key = ',', mods="CMD", -- rename t-mux window
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = ',' },
+              },
+            },
+            {
+              key = '.', mods="CMD", -- command t-mux
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = ':' },
+              },
+            },
+            {
+              key = 'l', mods="CMD", -- switch to last t-mux window
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = 'l' },
+              },
+            },
+            {
+              key = 'n', mods="CMD", -- switch to next t-mux window
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = 'n' },
+              },
+            },
+            {
+              key = 'p', mods="CMD", -- switch to prev t-mux window
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = 'p' },
+              },
+            },
+            {
+              key = '0', mods="CMD", -- goto t-mux window 0
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = '0' },
+              },
+            },
+            {
+              key = '1', mods="CMD", -- goto t-mux window 1
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = '1' },
+              },
+            },
+            {
+              key = '2', mods="CMD", -- goto t-mux window 2
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = '2' },
+              },
+            },
+            {
+              key = '3', mods="CMD", -- goto t-mux window 3
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = '3' },
+              },
+            },
+            {
+              key = '4', mods="CMD", -- goto t-mux window 4
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = '4' },
+              },
+            },
+            {
+              key = '5', mods="CMD", -- goto t-mux window 5
+              action = act.Multiple {
+                act.SendKey { key = 'a', mods="CTRL" },
+                act.SendKey { key = '5' },
+              },
+            },
+          }
         }
-      }
-    '';
+      '';
   };
 
   ssh = {
@@ -499,16 +607,16 @@ in {
       yank
       copycat
       open
-      {
-        plugin = vim-tmux-navigator-fresh;
-        extraConfig = ''
-          set -g @vim_navigator_mapping_left "C-Left"
-          set -g @vim_navigator_mapping_right "C-Right"
-          set -g @vim_navigator_mapping_up "C-Up"
-          set -g @vim_navigator_mapping_down "C-Down"
-          set -g @vim_navigator_mapping_prev ""  # removes the C-\ binding
-        '';
-      }
+      # {
+      #   plugin = vim-tmux-navigator-fresh;
+      #   extraConfig = ''
+      #     set -g @vim_navigator_mapping_left "C-Left"
+      #     set -g @vim_navigator_mapping_right "C-Right"
+      #     set -g @vim_navigator_mapping_up "C-Up"
+      #     set -g @vim_navigator_mapping_down "C-Down"
+      #     set -g @vim_navigator_mapping_prev ""  # removes the C-\ binding
+      #   '';
+      # }
       {
         plugin = power-theme;
         extraConfig = ''
