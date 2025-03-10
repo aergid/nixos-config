@@ -1,59 +1,58 @@
-{ pkgs }:
+{pkgs}:
+with pkgs; let
+  shared-packages = import ../shared/packages.nix {inherit pkgs;};
+in
+  shared-packages
+  ++ [
+    # Security and authentication
+    keepassxc
 
-with pkgs;
-let shared-packages = import ../shared/packages.nix { inherit pkgs; }; in
-shared-packages ++ [
+    # App and package management
+    appimage-run
+    gnumake
+    cmake
+    home-manager
 
-  firefox
-  # Security and authentication
-  keepassxc
+    # Media and design tools
+    celluloid #instead of gnome_mplayer
+    mpv
+    fontconfig
+    font-manager
 
-  # App and package management
-  appimage-run
-  gnumake
-  cmake
-  home-manager
+    # Productivity tools
+    bc # old school calculator
+    galculator
 
-  # Media and design tools
-  celluloid #instead of gnome_mplayer
-  mpv
-  fontconfig
-  font-manager
+    # Audio tools
+    pavucontrol # Pulse audio controls
 
-  # Productivity tools
-  bc # old school calculator
-  galculator
+    # Messaging and chat applications
+    tdesktop # telegram desktop
 
-  # Audio tools
-  pavucontrol # Pulse audio controls
+    # Testing and development tools
+    # Screenshot and recording tools
+    flameshot
+    simplescreenrecorder
 
-  # Messaging and chat applications
-  tdesktop # telegram desktop
+    # Text and terminal utilities
+    feh # Manage wallpapers
+    screenkey
+    tree
+    unixtools.ifconfig
+    unixtools.netstat
+    xclip # For the org-download package in Emacs
+    xorg.xwininfo # Provides a cursor to click and learn about windows
+    xorg.xrandr
 
-  # Testing and development tools
-  # Screenshot and recording tools
-  flameshot
-  simplescreenrecorder
+    # File and system utilities
+    inotify-tools # inotifywait, inotifywatch - For file system events
+    #  i3lock-fancy-rapid
+    libnotify
+    xdg-utils
 
-  # Text and terminal utilities
-  feh # Manage wallpapers
-  screenkey
-  tree
-  unixtools.ifconfig
-  unixtools.netstat
-  xclip # For the org-download package in Emacs
-  xorg.xwininfo # Provides a cursor to click and learn about windows
-  xorg.xrandr
+    # Other utilities
+    xdotool
 
-  # File and system utilities
-  inotify-tools # inotifywait, inotifywatch - For file system events
-#  i3lock-fancy-rapid
-  libnotify
-  xdg-utils
-
-  # Other utilities
-  xdotool
-
-  # PDF viewer
-  evince
-]
+    # PDF viewer
+    evince
+  ]

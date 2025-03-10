@@ -25,7 +25,6 @@ _: [
   "raycast"
 
   # Browsers
-  "firefox"
   "vivaldi"
   "google-chrome"
   # AI

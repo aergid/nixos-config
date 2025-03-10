@@ -77,7 +77,6 @@ in {
   # Fully declarative dock using the latest from Nix Store
   local.dock.enable = true;
   local.dock.entries = [
-    {path = "/Applications/Firefox.app/";}
     {path = "/Applications/Vivaldi.app/";}
     {path = "/Applications/Telegram.app/";}
     # {path = "${pkgs.alacritty}/Applications/Alacritty.app/";}
