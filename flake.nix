@@ -2,10 +2,11 @@
   description = "Starter Configuration for MacOS and NixOS";
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/staging-24.05";
+    # nixpkgs.url = "github:NixOS/nixpkgs/staging-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
-      url = "github:LnL7/nix-darwin/master";
+      url = "github:LnL7/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew = {

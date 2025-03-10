@@ -27,6 +27,7 @@ _: [
   # Browsers
   "firefox"
   "vivaldi"
+  "google-chrome"
   # AI
   "zoom"
 ]
