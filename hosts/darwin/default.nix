@@ -1,11 +1,11 @@
-{ config, pkgs, lib, ... }:
-
-let
-  user = "ksanteen";
-in
-
 {
-
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  user = "ksanteen";
+in {
   imports = [
     ../../modules/darwin/home-manager.nix
     ../../modules/shared
@@ -24,20 +24,20 @@ in
     '';
   };
 
-  environment.shells = with pkgs; [ bashInteractive fish zsh ];
-
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  environment.shells = with pkgs; [bashInteractive fish zsh];
 
   # Setup user, packages, programs
   nix = {
     package = pkgs.nixVersions.git;
-    settings.trusted-users = [ "@admin" "${user}" ];
+    settings.trusted-users = ["@admin" "${user}"];
 
     gc = {
-      user = "root";
       automatic = true;
-      interval = { Weekday = 0; Hour = 2; Minute = 0; };
+      interval = {
+        Weekday = 0;
+        Hour = 2;
+        Minute = 0;
+      };
       options = "--delete-older-than 30d";
     };
 
@@ -51,32 +51,38 @@ in
   system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
-  environment.systemPackages = with pkgs; [
-    colima
-  ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
+  environment.systemPackages = with pkgs;
+    [
+      colima
+    ]
+    ++ (import ../../modules/shared/packages.nix {inherit pkgs;});
 
   environment.variables = {
-    JAVA_OPTS="-Xmx2G";
-    DOCKER_HOST="unix:///Users/${user}/.colima/docker.sock";
-    PAGER="less -R";
-    EDITOR="nvim";
-    BAT_THEME="OneHalfDark";
-    GH_PAGER="bat --plain";
-    MANROFFOPT="-c";
-    MANPAGER="sh -c 'col -bx | bat -l man -p'";
+    JAVA_OPTS = "-Xmx2G";
+    DOCKER_HOST = "unix:///Users/${user}/.colima/docker.sock";
+    PAGER = "less -R";
+    EDITOR = "nvim";
+    BAT_THEME = "OneHalfDark";
+    GH_PAGER = "bat --plain";
+    MANROFFOPT = "-c";
+    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
   };
 
   # Enable fonts dir
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Iosevka" "Hack" ]; })
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.fira-code
+    nerd-fonts.iosevka
+    nerd-fonts.hack
   ];
 
   system = {
-    activationScripts.postUserActivation.text = ''
-    # Following line should allow us to avoid a logout/login cycle
-    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-    '';
+    # activationScripts.postUserActivation.text = ''
+    #   # Following line should allow us to avoid a logout/login cycle
+    #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    # '';
 
+    primaryUser = "ksanteen";
     stateVersion = 4;
 
     defaults = {
@@ -115,7 +121,7 @@ in
       finder = {
         AppleShowAllExtensions = true;
         AppleShowAllFiles = true;
-        FXDefaultSearchScope = "SCcf";  # current folder as default
+        FXDefaultSearchScope = "SCcf"; # current folder as default
         ShowPathbar = true;
         ShowStatusBar = true;
         _FXShowPosixPathInTitle = false;
@@ -134,53 +140,53 @@ in
   };
 
   system.defaults.CustomUserPreferences = {
-      NSGlobalDomain = {
-        # Add a context menu item for showing the Web Inspector in web views
-        WebKitDeveloperExtras = true;
-      };
-      "com.apple.finder" = {
-        ShowExternalHardDrivesOnDesktop = true;
-        ShowHardDrivesOnDesktop = false;
-        ShowMountedServersOnDesktop = true;
-        ShowRemovableMediaOnDesktop = true;
-        _FXSortFoldersFirst = true;
-        # When performing a search, search the current folder by default
-        FXDefaultSearchScope = "SCcf";
-      };
-      "com.apple.desktopservices" = {
-        # Avoid creating .DS_Store files on network or USB volumes
-        DSDontWriteNetworkStores = true;
-        DSDontWriteUSBStores = true;
-      };
-      "com.apple.screensaver" = {
-        # Require password immediately after sleep or screen saver begins
-        askForPassword = 1;
-        askForPasswordDelay = 0;
-      };
-      "com.apple.screencapture" = {
-        location = "~/Desktop";
-        type = "png";
-      };
-      "com.apple.AdLib" = {
-        allowApplePersonalizedAdvertising = false;
-      };
-      "com.apple.print.PrintingPrefs" = {
-        # Automatically quit printer app once the print jobs complete
-        "Quit When Finished" = true;
-      };
-      "com.apple.SoftwareUpdate" = {
-        AutomaticCheckEnabled = true;
-        # Check for software updates daily, not just once per week
-        ScheduleFrequency = 1;
-        # Download newly available updates in background
-        AutomaticDownload = 1;
-        # Install System data files & security updates
-        CriticalUpdateInstall = 1;
-      };
-      "com.apple.TimeMachine".DoNotOfferNewDisksForBackup = true;
-      # Prevent Photos from opening automatically when devices are plugged in
-      "com.apple.ImageCapture".disableHotPlug = true;
-      # Turn on app auto-update
-      "com.apple.commerce".AutoUpdate = true;
+    NSGlobalDomain = {
+      # Add a context menu item for showing the Web Inspector in web views
+      WebKitDeveloperExtras = true;
     };
+    "com.apple.finder" = {
+      ShowExternalHardDrivesOnDesktop = true;
+      ShowHardDrivesOnDesktop = false;
+      ShowMountedServersOnDesktop = true;
+      ShowRemovableMediaOnDesktop = true;
+      _FXSortFoldersFirst = true;
+      # When performing a search, search the current folder by default
+      FXDefaultSearchScope = "SCcf";
+    };
+    "com.apple.desktopservices" = {
+      # Avoid creating .DS_Store files on network or USB volumes
+      DSDontWriteNetworkStores = true;
+      DSDontWriteUSBStores = true;
+    };
+    "com.apple.screensaver" = {
+      # Require password immediately after sleep or screen saver begins
+      askForPassword = 1;
+      askForPasswordDelay = 0;
+    };
+    "com.apple.screencapture" = {
+      location = "~/Desktop";
+      type = "png";
+    };
+    "com.apple.AdLib" = {
+      allowApplePersonalizedAdvertising = false;
+    };
+    "com.apple.print.PrintingPrefs" = {
+      # Automatically quit printer app once the print jobs complete
+      "Quit When Finished" = true;
+    };
+    "com.apple.SoftwareUpdate" = {
+      AutomaticCheckEnabled = true;
+      # Check for software updates daily, not just once per week
+      ScheduleFrequency = 1;
+      # Download newly available updates in background
+      AutomaticDownload = 1;
+      # Install System data files & security updates
+      CriticalUpdateInstall = 1;
+    };
+    "com.apple.TimeMachine".DoNotOfferNewDisksForBackup = true;
+    # Prevent Photos from opening automatically when devices are plugged in
+    "com.apple.ImageCapture".disableHotPlug = true;
+    # Turn on app auto-update
+    "com.apple.commerce".AutoUpdate = true;
+  };
 }
