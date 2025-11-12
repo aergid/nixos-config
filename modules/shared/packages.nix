@@ -15,7 +15,13 @@ in
     btop
     coreutils
     delta
+    delve
     fish
+    go
+    gopls
+    gotools
+    gofumpt
+    gotests
     fzf
     gdk
     grc
