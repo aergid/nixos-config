@@ -1,10 +1,5 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: let
-  user = "ksanteen";
+{ config, pkgs, lib, ... }:
+let user = "ksanteen";
 in {
   imports = [
     ../../modules/darwin/home-manager.nix
@@ -24,12 +19,17 @@ in {
     '';
   };
 
-  environment.shells = with pkgs; [bashInteractive fish zsh];
+  environment.shells = with pkgs; [ bashInteractive fish zsh ];
 
   # Setup user, packages, programs
   nix = {
     package = pkgs.nixVersions.git;
-    settings.trusted-users = ["@admin" "${user}"];
+    settings = {
+      trusted-users = [ "@admin" "${user}" ];
+      substituters = [ "https://cache.nixos.org/" ];
+      trusted-public-keys =
+        [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+    };
 
     gc = {
       automatic = true;
@@ -52,10 +52,7 @@ in {
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs;
-    [
-      colima
-    ]
-    ++ (import ../../modules/shared/packages.nix {inherit pkgs;});
+    [ colima ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   environment.variables = {
     JAVA_OPTS = "-Xmx2G";
@@ -167,9 +164,7 @@ in {
       location = "~/Desktop";
       type = "png";
     };
-    "com.apple.AdLib" = {
-      allowApplePersonalizedAdvertising = false;
-    };
+    "com.apple.AdLib" = { allowApplePersonalizedAdvertising = false; };
     "com.apple.print.PrintingPrefs" = {
       # Automatically quit printer app once the print jobs complete
       "Quit When Finished" = true;

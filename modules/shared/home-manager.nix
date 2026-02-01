@@ -1,21 +1,18 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: let
+{ config, pkgs, lib, ... }:
+let
   name = "aergid";
   user = "ksanteen";
   email = "develer@gmail.com";
-  vim-tmux-navigator-fresh = pkgs.tmuxPlugins.vim-tmux-navigator.overrideAttrs (_: {
-    src = pkgs.fetchFromGitHub {
-      owner = "christoomey";
-      repo = "vim-tmux-navigator";
-      rev = "2d8bc8176af90935fb918526b0fde73d6ceba0df";
-      sha256 = "sha256-2ObHLgdrv7UftZbaICPEpftEZMY0sTqyPgK1x9rQS9Q=";
-    };
-    version = "unstable-2024-11-03";
-  });
+  vim-tmux-navigator-fresh = pkgs.tmuxPlugins.vim-tmux-navigator.overrideAttrs
+    (_: {
+      src = pkgs.fetchFromGitHub {
+        owner = "christoomey";
+        repo = "vim-tmux-navigator";
+        rev = "2d8bc8176af90935fb918526b0fde73d6ceba0df";
+        sha256 = "sha256-2ObHLgdrv7UftZbaICPEpftEZMY0sTqyPgK1x9rQS9Q=";
+      };
+      version = "unstable-2024-11-03";
+    });
   yazi-flavors = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "flavors";
@@ -27,9 +24,7 @@ in {
     enable = true;
     package = pkgs.yazi;
     settings = {
-      manager = {
-        ratio = [1 2 4];
-      };
+      manager = { ratio = [ 1 2 4 ]; };
       preview = {
         max_width = 1024;
         max_height = 1024;
@@ -50,35 +45,31 @@ in {
         sha256 = "sha256-ncOOCj53wXPZvaPSoJ5LjaWSzw1omHadKDrXdIb7G5U=";
       };
     };
-    theme = {
-      flavor = {
-        use = "catppuccin-mocha";
-      };
-    };
+    theme = { flavor = { use = "catppuccin-mocha"; }; };
     keymap = {
       manager.prepend_keymap = [
         {
           run = "close";
-          on = ["<C-q>"];
+          on = [ "<C-q>" ];
         }
         {
           run = "seek -5";
-          on = ["<A-Up>"];
+          on = [ "<A-Up>" ];
           desc = "Scroll up preview";
         }
         {
           run = "seek -5";
-          on = ["<C-u>"];
+          on = [ "<C-u>" ];
           desc = "Scroll up preview";
         }
         {
           run = "seek 5";
-          on = ["<C-d>"];
+          on = [ "<C-d>" ];
           desc = "Scroll down preview";
         }
         {
           run = "seek 5";
-          on = ["<A-Down>"];
+          on = [ "<A-Down>" ];
           desc = "Scroll down preview";
         }
         {
@@ -88,13 +79,9 @@ in {
         }
       ];
     };
-    flavors = {
-      catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi/";
-    };
+    flavors = { catppuccin-mocha = "${yazi-flavors}/catppuccin-mocha.yazi/"; };
   };
-  zoxide = {
-    enable = true;
-  };
+  zoxide = { enable = true; };
 
   # Shared shell configuration
   zsh = {
@@ -145,21 +132,19 @@ in {
 
   git = {
     enable = true;
-    ignores = ["*.swp"];
-    userName = name;
-    userEmail = email;
-    lfs = {
-      enable = true;
-    };
-    extraConfig = {
-      init.defaultBranch = "main";
-      core = {
-        editor = "vim";
-        autocrlf = "input";
+    settings = {
+      extraConfig = {
+        init.defaultBranch = "main";
+        core = {
+          editor = "vim";
+          autocrlf = "input";
+        };
+        pull.rebase = true;
+        rebase.autoStash = true;
       };
-      pull.rebase = true;
-      rebase.autoStash = true;
     };
+    ignores = [ "*.swp" ];
+    lfs = { enable = true; };
   };
 
   fzf = {
@@ -215,7 +200,7 @@ in {
         src = sponge.src;
       }
       {
-        name = "fish-exa"; #TODO derive with proper install/uninstall
+        name = "fish-exa"; # TODO derive with proper install/uninstall
         src = pkgs.fetchFromGitHub {
           owner = "gazorby";
           repo = "fish-exa";
@@ -235,9 +220,7 @@ in {
     enable = true;
 
     settings = {
-      cursor = {
-        style = "Block";
-      };
+      cursor = { style = "Block"; };
 
       env.term = "xterm-256color";
 
@@ -297,42 +280,42 @@ in {
           key = "Key2";
           mods = "Command";
           chars = "\\u00012";
-        } #                ... 2
+        } # ... 2
         {
           key = "Key3";
           mods = "Command";
           chars = "\\u00013";
-        } #                ... 3
+        } # ... 3
         {
           key = "Key4";
           mods = "Command";
           chars = "\\u00014";
-        } #                ... 4
+        } # ... 4
         {
           key = "Key5";
           mods = "Command";
           chars = "\\u00015";
-        } #                ... 5
+        } # ... 5
         {
           key = "Key6";
           mods = "Command";
           chars = "\\u00016";
-        } #                ... 6
+        } # ... 6
         {
           key = "Key7";
           mods = "Command";
           chars = "\\u00017";
-        } #                ... 7
+        } # ... 7
         {
           key = "Key8";
           mods = "Command";
           chars = "\\u00018";
-        } #                ... 8
+        } # ... 8
         {
           key = "Key9";
           mods = "Command";
           chars = "\\u00019";
-        } #                ... 9
+        } # ... 9
       ];
 
       window = {
@@ -573,14 +556,12 @@ in {
           Hostname github.com
           IdentitiesOnly yes
       ''
-      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
-        ''
-          IdentityFile /home/${user}/.ssh/id_github
-        '')
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
-        ''
-          IdentityFile /Users/${user}/.ssh/id_github
-        '')
+      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
+        IdentityFile /home/${user}/.ssh/id_github
+      '')
+      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
+        IdentityFile /Users/${user}/.ssh/id_github
+      '')
     ];
   };
 
