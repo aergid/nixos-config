@@ -27,11 +27,11 @@ in with pkgs; [
   gdk
   grc
   jdk21
-  jetbrains.idea-community-bin
+  jetbrains.idea
+  jetbrains.goland
   # joplin-desktop
   killall
   most
-  neofetch
   openssh
   pandoc
   sbt-with-scala-native

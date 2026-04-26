@@ -1,12 +1,12 @@
 {
   description = "Starter Configuration for MacOS and NixOS";
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
-      # url = "github:nix-darwin/nix-darwin";
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+      url = "github:nix-darwin/nix-darwin/master";
+      # url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew = { url = "github:zhaofengli-wip/nix-homebrew"; };
@@ -100,18 +100,18 @@
                   onyxvim = onyxvim.packages.${system}.default;
                   nodejs =
                     super.nodejs.overrideAttrs (old: { doCheck = false; });
-                  jetbrains = super.jetbrains // {
-                    idea-community-bin =
-                      super.jetbrains.idea-community-bin.overrideAttrs (old: {
-                        version = "2024.3.1";
-                        src = super.fetchurl {
-                          url =
-                            "https://download.jetbrains.com/idea/idea-2025.3.2-aarch64.dmg";
-                          sha256 =
-                            "sha256-uaBXwFX6fd5Aa7+YB/yis2fwwdR3cd9qwGigf/23bsk=";
-                        };
-                      });
-                  };
+                  # jetbrains = super.jetbrains // {
+                  #   idea-community-bin =
+                  #     super.jetbrains.idea-community-bin.overrideAttrs (old: {
+                  #       version = "2024.3.1";
+                  #       src = super.fetchurl {
+                  #         url =
+                  #           "https://download.jetbrains.com/idea/idea-2025.3.2-aarch64.dmg";
+                  #         sha256 =
+                  #           "sha256-uaBXwFX6fd5Aa7+YB/yis2fwwdR3cd9qwGigf/23bsk=";
+                  #       };
+                  #     });
+                  # };
                 })
                 yazi.overlays.default
               ];
@@ -134,8 +134,9 @@
         };
       };
 
-      nixosConfigurations = nixpkgs.lib.genAttrs linuxSystems (system:
-        nixpkgs.lib.nixosSystem {
+      nixosConfigurations = builtins.listToAttrs (map (system: {
+        name = "nixos-${system}";
+        value = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = inputs;
           modules = [
@@ -150,6 +151,7 @@
             }
             ./hosts/nixos
           ];
-        });
+        };
+      }) linuxSystems);
     };
 }
