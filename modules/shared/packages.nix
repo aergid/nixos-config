@@ -14,6 +14,7 @@ in with pkgs; [
   aspellDicts.en
   bat
   btop
+  claude-code
   coreutils
   delta
   delve

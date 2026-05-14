@@ -32,9 +32,11 @@
       url = "github:aergid/onyxvim?ref=nixcats";
       flake = true;
     };
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core
-    , homebrew-cask, home-manager, nixpkgs, yazi, onyxvim, disko, }@inputs:
+    , homebrew-cask, home-manager, nixpkgs, yazi, onyxvim, disko, claude-code,
+    }@inputs:
     let
       user = "ksanteen";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -114,6 +116,7 @@
                   # };
                 })
                 yazi.overlays.default
+                claude-code.overlays.default
               ];
             }
             {
