@@ -29,4 +29,5 @@ _: [
   "google-chrome"
   # AI
   "zoom"
+  "claude"
 ]
