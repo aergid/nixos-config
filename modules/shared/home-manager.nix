@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  name = "aergid";
   user = "ksanteen";
-  email = "develer@gmail.com";
   vim-tmux-navigator-fresh = pkgs.tmuxPlugins.vim-tmux-navigator.overrideAttrs
     (_: {
       src = pkgs.fetchFromGitHub {
@@ -133,18 +131,67 @@ in {
   git = {
     enable = true;
     settings = {
-      extraConfig = {
-        init.defaultBranch = "main";
-        core = {
-          editor = "vim";
-          autocrlf = "input";
-        };
-        pull.rebase = true;
-        rebase.autoStash = true;
+      init.defaultBranch = "main";
+      core = {
+        editor = "vim";
+        autocrlf = "input";
       };
+      pull.rebase = true;
+      rebase.autoStash = true;
+      color.pager = true;
+      url."git@github.com:".insteadOf = "https://github.com/";
     };
+    includes = [
+      { path = "~/.config/git/config.local"; }
+    ];
     ignores = [ "*.swp" ];
     lfs = { enable = true; };
+  };
+
+  delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      features = "hoopoe";
+      true-color = "always";
+      interactive.keep-plus-minus-markers = false;
+      decorations = {
+        commit-decoration-style = "blue ol";
+        commit-style = "raw";
+        file-style = "omit";
+        hunk-header-decoration-style = "blue box";
+        hunk-header-file-style = "red";
+        hunk-header-line-number-style = "#067a00";
+        hunk-header-style = "file line-number syntax";
+      };
+      hoopoe = {
+        minus-style = "normal #80002a";
+        minus-emph-style = "normal #ef0050";
+        minus-non-emph-style = "normal #80002a";
+        plus-style = "syntax #069a00";
+        plus-emph-style = "syntax #004000";
+        plus-non-emph-style = "syntax #069a00";
+        minus-empty-line-marker-style = "normal #80002a";
+        plus-empty-line-marker-style = "syntax #069a00";
+        commit-decoration-style = "blue ol";
+        commit-style = "raw";
+        file-style = "omit";
+        hunk-header-decoration-style = "blue box";
+        hunk-header-file-style = "red";
+        hunk-header-line-number-style = "#004000";
+        hunk-header-style = "file line-number syntax";
+        syntax-theme = "Monokai Extended Bright";
+        zero-style = "syntax";
+      };
+    };
+  };
+
+  gh = {
+    enable = true;
+    gitCredentialHelper = {
+      enable = true;
+      hosts = [ "https://github.com" "https://gist.github.com" ];
+    };
   };
 
   fzf = {
@@ -459,10 +506,19 @@ in {
               },
             },
             {
-              key = 'z', mods="CMD", -- zoom t-mux pane
-              action = act.Multiple {
-                act.SendKey { key = 'a', mods="CTRL" },
-                act.SendKey { key = 'z' },
+              key = 'z', mods="CMD", -- zoom (zellij: direct Alt-z; tmux: lost)
+              action = act.SendKey { key = 'z', mods="ALT" },
+            },
+            {
+              key = 'o', mods="CMD", -- URL quick-select (multiplexer-agnostic)
+              action = act.QuickSelectArgs {
+                patterns = { "https?://\\S+" },
+                action = wezterm.action_callback(function(window, pane)
+                  local url = window:get_selection_text_for_pane(pane)
+                  if url and #url > 0 then
+                    wezterm.open_with(url)
+                  end
+                end),
               },
             },
             {
@@ -549,6 +605,10 @@ in {
 
   ssh = {
     enable = true;
+
+    # Trailing glob so a missing file is tolerated (ssh errors on missing
+    # non-glob Include paths).
+    includes = [ "config.local*" ];
 
     extraConfig = lib.mkMerge [
       ''
@@ -684,6 +744,51 @@ in {
          bind-key "%" split-window -h -c "#{pane_current_path}"
          bind-key '"' split-window -v -c "#{pane_current_path}"
       #
+    '';
+  };
+  zellij = {
+    enable = true;
+
+    # Keep OFF. enableFishIntegration adds `zellij attach -c` to fish init,
+    # which would auto-start zellij in every terminal and collide with
+    # tmux-continuum's @continuum-boot 'on'. Launch zellij explicitly.
+    enableFishIntegration = false;
+
+    settings = {
+      default_shell = "${pkgs.fish}/bin/fish";
+      default_layout = "default"; # mode-aware status bar shows current bindings
+      pane_frames = false; # toggle in-session with Ctrl-p z
+      mouse_mode = true;
+      copy_on_select = true; # tmux-yank parity
+      copy_clipboard = "system"; # OSC52 — works over SSH too
+      copy_command =
+        if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
+
+      # Session persistence (resurrect + continuum equivalent)
+      session_serialization = true;
+      serialize_pane_viewport = true;
+      scrollback_lines_to_serialize = 10000;
+      serialization_interval =
+        600; # seconds; matches @continuum-save-interval 10
+
+      # Kitty keyboard protocol for richer key reporting + better passthrough
+      # for terminals that speak it (WezTerm, Kitty, Ghostty).
+      support_kitty_keyboard_protocol = true;
+
+      # Closest built-in match to tmux-power 'gold' — warm yellows on dark bg.
+      # Swap to `kanagawa` or define a custom theme via programs.zellij.themes
+      # if the tint feels off.
+      theme = "gruvbox-dark";
+    };
+
+    # Lean on Zellij defaults. Only one additive binding: direct Alt-z for
+    # zoom so WezTerm Cmd-Z stops racing the mode switch.
+    extraConfig = ''
+      keybinds {
+          shared_except "locked" {
+              bind "Alt z" { ToggleFocusFullscreen; }
+          }
+      }
     '';
   };
 }

@@ -51,6 +51,10 @@ in {
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
+    # Rename pre-existing files (created imperatively or by other tools) out of
+    # the way when home-manager wants to manage that path. Without this, the
+    # activation aborts on first conflict.
+    backupFileExtension = "hm-backup";
     users.${user} = {
       pkgs,
       config,
@@ -64,6 +68,17 @@ in {
           sharedFiles
           additionalFiles
         ];
+        # Create empty stubs for the local identity includes if absent, so the
+        # ssh/git Include directives always resolve. Never overwrites.
+        activation.bootstrapIdentityIncludes = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          for f in "$HOME/.ssh/config.local" "$HOME/.config/git/config.local"; do
+            if [ ! -e "$f" ]; then
+              $DRY_RUN_CMD mkdir -p "$(dirname "$f")"
+              $DRY_RUN_CMD touch "$f"
+              $DRY_RUN_CMD chmod 600 "$f"
+            fi
+          done
+        '';
         stateVersion = "23.11";
       };
       programs = {} // import ../shared/home-manager.nix {inherit config pkgs lib;};

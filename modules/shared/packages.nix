@@ -18,7 +18,6 @@ in with pkgs; [
   btop
   claude-code
   coreutils
-  delta
   delve
   fish
   go
@@ -73,7 +72,6 @@ in with pkgs; [
 
   # Text and terminal utilities
   eza
-  gh
   grpcurl
   htop
   httpie
