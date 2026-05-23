@@ -86,7 +86,6 @@ in with pkgs; [
   p7zip
   ripgrep
   tig
-  tmux
   tree
   zsh-powerlevel10k
 

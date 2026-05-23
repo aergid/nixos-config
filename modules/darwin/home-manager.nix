@@ -9,15 +9,6 @@
   # Define the content of your file as a derivation
   sharedFiles = import ../shared/files.nix {inherit config pkgs;};
   additionalFiles = import ./files.nix {inherit user config pkgs;};
-  t-smart-tmux-session-manager = pkgs.tmuxPlugins.t-smart-tmux-session-manager.overrideAttrs (previousAttrs: {
-    postInstall =
-      (previousAttrs.postInstall or "")
-      + ''
-        mkdir $out/bin
-        cp $out/share/tmux-plugins/t-smart-tmux-session-manager/bin/t $out/bin
-        chmod +x $out/bin/t
-      '';
-  });
 in {
   imports = [
     ./dock
@@ -63,7 +54,7 @@ in {
     }: {
       home = {
         enableNixpkgsReleaseCheck = false;
-        packages = [t-smart-tmux-session-manager] ++ pkgs.callPackage ./packages.nix {inherit pkgs;};
+        packages = pkgs.callPackage ./packages.nix {inherit pkgs;};
         file = lib.mkMerge [
           sharedFiles
           additionalFiles
