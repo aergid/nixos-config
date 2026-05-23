@@ -756,37 +756,55 @@ in {
 
     settings = {
       default_shell = "${pkgs.fish}/bin/fish";
-      default_layout = "default"; # mode-aware status bar shows current bindings
-      pane_frames = false; # toggle in-session with Ctrl-p z
+      # Single-line tab+status bar (no separate mode hint bar).
+      default_layout = "compact";
+      pane_frames = false;
       mouse_mode = true;
-      copy_on_select = true; # tmux-yank parity
+      copy_on_select = true; # mouse drag → clipboard, tmux-yank parity
       copy_clipboard = "system"; # OSC52 — works over SSH too
       copy_command =
         if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
 
-      # Session persistence (resurrect + continuum equivalent)
+      # Session persistence (tmux-resurrect + continuum equivalent).
       session_serialization = true;
       serialize_pane_viewport = true;
       scrollback_lines_to_serialize = 10000;
-      serialization_interval =
-        600; # seconds; matches @continuum-save-interval 10
+      serialization_interval = 600;
 
-      # Kitty keyboard protocol for richer key reporting + better passthrough
-      # for terminals that speak it (WezTerm, Kitty, Ghostty).
       support_kitty_keyboard_protocol = true;
 
-      # Closest built-in match to tmux-power 'gold' — warm yellows on dark bg.
-      # Swap to `kanagawa` or define a custom theme via programs.zellij.themes
-      # if the tint feels off.
       theme = "gruvbox-dark";
     };
 
-    # Lean on Zellij defaults. Only one additive binding: direct Alt-z for
-    # zoom so WezTerm Cmd-Z stops racing the mode switch.
+    # Layered on top of zellij defaults — only what differs from upstream.
+    # Defaults still in effect:
+    #   Ctrl-s → Scroll mode (then `s` to search, n/N to jump matches)
+    #   Ctrl-p / Ctrl-t / Ctrl-n / Ctrl-o → Pane / Tab / Resize / Session modes
+    #   Alt h/j/k + Alt arrows → pane focus
+    #   Alt n → NewPane, Alt = / Alt - → resize
     extraConfig = ''
       keybinds {
+          // Alt-l defaults to MoveFocusOrTab "Right"; reclaim it for tmux-style last-tab.
+          unbind "Alt p"
+
           shared_except "locked" {
-              bind "Alt z" { ToggleFocusFullscreen; }
+              // ── User-required ─────────────────────────────────
+              bind "Alt z" { ToggleFocusFullscreen; }       // zoom pane
+              bind "Alt p" { ToggleTab; }                   // jump to previously-active tab (tmux C-a l)
+              bind "Alt 1" { GoToTab 1; }
+              bind "Alt 2" { GoToTab 2; }
+              bind "Alt 3" { GoToTab 3; }
+              bind "Alt 4" { GoToTab 4; }
+              bind "Alt 5" { GoToTab 5; }
+              bind "Alt 6" { GoToTab 6; }
+              bind "Alt 7" { GoToTab 7; }
+              bind "Alt 8" { GoToTab 8; }
+              bind "Alt 9" { GoToTab 9; }
+
+              // ── Tmux-mnemonic direct actions (no mode switch) ──
+              bind "Alt c" { NewTab; }                      // create tab    (tmux C-a c)
+              bind "Alt x" { CloseFocus; }                  // kill pane     (tmux C-a x)
+              bind "Alt ," { SwitchToMode "RenameTab"; TabNameInput 0; }  // rename (tmux C-a ,)
           }
       }
     '';
