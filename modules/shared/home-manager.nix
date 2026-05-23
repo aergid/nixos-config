@@ -11,6 +11,7 @@ in {
   yazi = {
     enable = true;
     package = pkgs.yazi;
+    shellWrapperName = "y";
     settings = {
       manager = { ratio = [ 1 2 4 ]; };
       preview = {
@@ -397,6 +398,7 @@ in {
 
   ssh = {
     enable = true;
+    enableDefaultConfig = false;
 
     # Trailing glob so a missing file is tolerated (ssh errors on missing
     # non-glob Include paths).
