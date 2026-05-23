@@ -131,9 +131,7 @@ in {
       color.pager = true;
       url."git@github.com:".insteadOf = "https://github.com/";
     };
-    includes = [
-      { path = "~/.config/git/config.local"; }
-    ];
+    includes = [{ path = "~/.config/git/config.local"; }];
     ignores = [ "*.swp" ];
     lfs = { enable = true; };
   };
@@ -146,29 +144,29 @@ in {
       true-color = "always";
       interactive.keep-plus-minus-markers = false;
       decorations = {
-        commit-decoration-style = "blue ol";
+        commit-decoration-style = "#69db7c ol";
         commit-style = "raw";
         file-style = "omit";
-        hunk-header-decoration-style = "blue box";
-        hunk-header-file-style = "red";
-        hunk-header-line-number-style = "#067a00";
+        hunk-header-decoration-style = "#69db7c box";
+        hunk-header-file-style = "#ffa8b4";
+        hunk-header-line-number-style = "#69db7c";
         hunk-header-style = "file line-number syntax";
       };
       hoopoe = {
-        minus-style = "normal #80002a";
-        minus-emph-style = "normal #ef0050";
-        minus-non-emph-style = "normal #80002a";
-        plus-style = "syntax #069a00";
-        plus-emph-style = "syntax #004000";
-        plus-non-emph-style = "syntax #069a00";
-        minus-empty-line-marker-style = "normal #80002a";
-        plus-empty-line-marker-style = "syntax #069a00";
-        commit-decoration-style = "blue ol";
+        minus-style = "syntax #3D0100";
+        minus-emph-style = "normal #5C0200";
+        minus-non-emph-style = "syntax #3D0100";
+        plus-style = "syntax #032800";
+        plus-emph-style = "normal #044700";
+        plus-non-emph-style = "syntax #032800";
+        minus-empty-line-marker-style = "normal #7a2936";
+        plus-empty-line-marker-style = "syntax #225c2b";
+        commit-decoration-style = "#69db7c ol";
         commit-style = "raw";
         file-style = "omit";
-        hunk-header-decoration-style = "blue box";
-        hunk-header-file-style = "red";
-        hunk-header-line-number-style = "#004000";
+        hunk-header-decoration-style = "#69db7c box";
+        hunk-header-file-style = "#ffa8b4";
+        hunk-header-line-number-style = "#69db7c";
         hunk-header-style = "file line-number syntax";
         syntax-theme = "Monokai Extended Bright";
         zero-style = "syntax";
