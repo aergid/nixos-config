@@ -4,8 +4,8 @@ let
     (with pkgs.google-cloud-sdk.components; [ gke-gcloud-auth-plugin ]);
 in with pkgs; [
   # d2  # disabled: nixpkgs unstable wraps d2 with mesa-libgbm + playwright-browsers,
-         # which pulls in libdrm (Linux-only) and fails to build on Darwin.
-         # See notes/nix-tooling.md.
+  # which pulls in libdrm (Linux-only) and fails to build on Darwin.
+  # See notes/nix-tooling.md.
   gemini-cli
   ueberzugpp
   onyxvim

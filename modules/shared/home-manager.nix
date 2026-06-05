@@ -398,25 +398,37 @@ in {
 
   ssh = {
     enable = true;
-    enableDefaultConfig = false;
 
     # Trailing glob so a missing file is tolerated (ssh errors on missing
-    # non-glob Include paths).
+    # non-glob Include paths). Kept as an escape hatch for ad-hoc local
+    # entries not worth checking in.
     includes = [ "config.local*" ];
 
-    extraConfig = lib.mkMerge [
-      ''
-        Host github.com
-          Hostname github.com
-          IdentitiesOnly yes
-      ''
-      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
-        IdentityFile /home/${user}/.ssh/id_github
-      '')
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin ''
-        IdentityFile /Users/${user}/.ssh/id_github
-      '')
-    ];
+    settings = let
+      home = if pkgs.stdenv.hostPlatform.isDarwin
+             then "/Users/${user}"
+             else "/home/${user}";
+    in {
+      # Required under the new RFC42-style schema in place of the old
+      # `enableDefaultConfig = false`. Empty body = no global defaults.
+      "*" = { };
+
+      "github-work" = {
+        Hostname = "github.com";
+        User = "git";
+        IdentityFile = "${home}/.ssh/keys/tcgh";
+        IdentitiesOnly = true;
+        AddKeysToAgent = true;
+      };
+
+      "github" = {
+        Hostname = "github.com";
+        User = "git";
+        IdentityFile = "${home}/.ssh/keys/gitkey";
+        IdentitiesOnly = true;
+        AddKeysToAgent = true;
+      };
+    };
   };
 
   zellij = {
