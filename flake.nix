@@ -32,10 +32,10 @@
       url = "github:aergid/onyxvim?ref=nixcats";
       flake = true;
     };
-    claude-code.url = "github:sadjow/claude-code-nix";
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core
-    , homebrew-cask, home-manager, nixpkgs, yazi, onyxvim, disko, claude-code,
+    , homebrew-cask, home-manager, nixpkgs, yazi, onyxvim, disko, llm-agents,
     }@inputs:
     let
       user = "ksanteen";
@@ -116,7 +116,7 @@
                   # };
                 })
                 yazi.overlays.default
-                claude-code.overlays.default
+                llm-agents.overlays.default
               ];
             }
             {

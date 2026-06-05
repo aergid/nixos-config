@@ -17,6 +17,7 @@ in with pkgs; [
   bat
   btop
   claude-code
+  ccstatusline
   coreutils
   delve
   fish
