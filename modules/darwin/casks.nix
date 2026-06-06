@@ -27,6 +27,7 @@ _: [
   # Browsers
   "vivaldi"
   "google-chrome"
+  "zen-browser"
   # AI
   "zoom"
   "claude"

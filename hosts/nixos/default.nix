@@ -5,6 +5,7 @@ let user = "ksanteen";
 {
   imports = [
     ../../modules/nixos/hardware-configuration.nix
+    ../../modules/nixos/zen-browser.nix
     ../../modules/shared
     ../../modules/shared/cachix
   ];

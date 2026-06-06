@@ -33,9 +33,14 @@
       flake = true;
     };
     llm-agents.url = "github:numtide/llm-agents.nix";
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core
-    , homebrew-cask, home-manager, nixpkgs, yazi, onyxvim, disko, llm-agents,
+    , homebrew-cask, home-manager, nixpkgs, yazi, onyxvim, disko, llm-agents
+    , zen-browser,
     }@inputs:
     let
       user = "ksanteen";
