@@ -18,6 +18,7 @@ in with pkgs; [
   btop
   claude-code
   ccstatusline
+  github-mcp-server
   coreutils
   delve
   fish
