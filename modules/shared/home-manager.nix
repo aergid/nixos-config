@@ -192,6 +192,7 @@ in {
     enable = true;
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
+      fish_add_path $HOME/.npm-packages/bin
       functions -c fish_prompt _my_old_fish_prompt
       function fish_prompt
         if set -q VIFM
@@ -245,6 +246,11 @@ in {
         };
       }
     ];
+  };
+
+  npm = {
+    enable = true;
+    settings.prefix = "~/.npm-packages";
   };
 
   direnv = {

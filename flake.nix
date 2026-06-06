@@ -116,7 +116,7 @@
                   # };
                 })
                 yazi.overlays.default
-                llm-agents.overlays.default
+                (final: prev: llm-agents.packages.${system})
               ];
             }
             {
