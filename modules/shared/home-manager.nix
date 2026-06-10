@@ -438,6 +438,13 @@ in {
         IdentitiesOnly = true;
         AddKeysToAgent = true;
       };
+
+      "github.com" = {
+        User = "git";
+        IdentityFile = "${home}/.ssh/keys/gitkey";
+        IdentitiesOnly = true;
+        AddKeysToAgent = true;
+      };
     };
   };
 
