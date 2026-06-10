@@ -1,6 +1,10 @@
 { config, pkgs, lib, ... }:
 let
   user = "ksanteen";
+  zellij-autolock = pkgs.fetchurl {
+    url = "https://github.com/fresh2dev/zellij-autolock/releases/download/0.2.2/zellij-autolock.wasm";
+    hash = "sha256-aclWB7/ZfgddZ2KkT9vHA6gqPEkJ27vkOVLwIEh7jqQ=";
+  };
   yazi-flavors = pkgs.fetchFromGitHub {
     owner = "yazi-rs";
     repo = "flavors";
@@ -472,7 +476,44 @@ in {
     #   Alt h/j/k + Alt arrows → pane focus
     #   Alt n → NewPane, Alt = / Alt - → resize
     extraConfig = ''
+      plugins {
+          autolock location="file:${zellij-autolock}" {
+              is_enabled true
+              // Lock when any of these commands own the focused pane.
+              triggers "nvim|vim|fzf|zoxide|atuin"
+              reaction_seconds "0.3"
+          }
+      }
+
+      load_plugins {
+          autolock
+      }
+
       keybinds {
+          // Notify autolock after Enter so it re-checks the new foreground process
+          // (e.g. you just launched nvim from the shell).
+          normal {
+              bind "Enter" {
+                  WriteChars "\u{000D}";
+                  MessagePlugin "autolock" {};
+              }
+          }
+
+          locked {
+              // Let Ctrl-g pass through to vim (file-info, tag jumps, etc.) — autolock handles re-entry
+              unbind "Ctrl g"
+              // zoom: unlock just long enough to toggle zoom; autolock re-engages on next vim keypress
+              bind "Alt z" {
+                  SwitchToMode "Normal";
+                  ToggleFocusFullscreen;
+              }
+              // hard escape: disables autolock entirely (use when it gets stuck)
+              bind "Alt q" {
+                  MessagePlugin "autolock" { payload "disable"; };
+                  SwitchToMode "Normal";
+              }
+          }
+
           shared_except "locked" {
               bind "Alt z" { ToggleFocusFullscreen; }      // zoom pane
               bind "Alt p" { ToggleTab; }                  // jump to previously-active tab
