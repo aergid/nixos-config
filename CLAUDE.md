@@ -29,8 +29,8 @@ nix run .#apply
 There is no test suite, linter, or formatter wired up. To sanity-check changes without activating:
 
 ```sh
-nix --experimental-features 'nix-command flakes' build .#darwinConfigurations.macos.system
-nix --experimental-features 'nix-command flakes' build .#nixosConfigurations.nixos-x86_64-linux.config.system.build.toplevel
+nix  build .#darwinConfigurations.macos.system
+nix  build .#nixosConfigurations.nixos-x86_64-linux.config.system.build.toplevel
 ```
 
 The `devShells.default` (entered via `nix develop`) only provides `bashInteractive` + `git` and sets `EDITOR=vim` — it is not a dev environment for any application code, just a clean shell for working on the flake.
@@ -52,7 +52,7 @@ hosts/nixos/default.nix     imports → modules/nixos/hardware-configuration.nix
                                       modules/shared/cachix
 ```
 
-`modules/shared` is where most cross-platform config lives (zsh/fish, tmux, yazi, git, the shared package list). Each of `modules/{darwin,nixos}` adds its own `home-manager.nix`, `files.nix`, and `packages.nix` and merges shared content via `lib.mkMerge` / list concatenation. Darwin additionally has `casks.nix` (Homebrew casks) and a `dock/` module that declaratively manages the macOS Dock.
+`modules/shared` is where most cross-platform config lives (zsh/fish, zellij, yazi, git, the shared package list). Each of `modules/{darwin,nixos}` adds its own `home-manager.nix`, `files.nix`, and `packages.nix` and merges shared content via `lib.mkMerge` / list concatenation. Darwin additionally has `casks.nix` (Homebrew casks) and a `dock/` module that declaratively manages the macOS Dock.
 
 ### Where to put a change
 
