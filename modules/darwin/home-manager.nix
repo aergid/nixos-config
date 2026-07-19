@@ -85,7 +85,6 @@ in {
   local.dock.entries = [
     {path = "/Applications/Vivaldi.app/";}
     {path = "/Applications/Telegram.app/";}
-    # {path = "${pkgs.alacritty}/Applications/Alacritty.app/";}
     {path = "${pkgs.wezterm}/Applications/WezTerm.app/";}
     {path = "/Applications/Tidal.app/";}
     {path = "/Applications/VLC.app/";}

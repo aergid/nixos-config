@@ -60,15 +60,15 @@ with lib.hm.gvariant;
       gtk-enable-primary-paste = true;
       icon-theme = "elementary";
       monospace-font-name = "FiraCode Nerd Font Medium 13";
-      text-scaling-factor = 1.25;
+      text-scaling-factor = 1.0;
     };
 
     "org/gnome/desktop/input-sources" = {
       xkb-options = [ "grp:caps_toggle" ];
-			sources = [
-          "('xkb', 'us')"
-          "('xkb', 'ru')"
-        ];
+      sources = [
+        (mkTuple [ "xkb" "us" ])
+        (mkTuple [ "xkb" "ru" ])
+      ];
     };
 
     "org/gnome/desktop/sound" = {
@@ -78,6 +78,9 @@ with lib.hm.gvariant;
     "org/gnome/desktop/wm/keybindings" = {
       switch-to-workspace-left = [ "<Primary><Alt>Left" ];
       switch-to-workspace-right = [ "<Primary><Alt>Right" ];
+      # Default binds <Alt>space here, colliding with the custom
+      # launcher binding below — clear it so <Alt>space is free.
+      activate-window-menu = [ ];
     };
 
    "org/gnome/settings-daemon/plugins/xsettings" = {
@@ -89,7 +92,7 @@ with lib.hm.gvariant;
     "org/gnome/desktop/wm/preferences" = {
       titlebar-font = "Work Sans Semi-Bold 12";
       audible-bell = false;
-      button-layout = "close,minimize,maximize";
+      button-layout = ":minimize,maximize,close";
       # num-workspaces = 8;
       # workspace-names = ["Web" "Work" "Chat" "Code" "Virt" "Cast" "Fun" "Stuff"];
     };
@@ -100,7 +103,10 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+      ];
     };
 
 		"io/elementary/files/preferences" = {
@@ -112,6 +118,12 @@ with lib.hm.gvariant;
       binding = "<Super>e";
       command = "io.elementary.files -n ~/";
       name = "io.elementary.files -n ~/";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      binding = "<Alt>space";
+      command = "ulauncher-toggle";
+      name = "ulauncher-toggle";
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
@@ -161,9 +173,13 @@ with lib.hm.gvariant;
       name = "io.elementary.stylesheet.blueberry";
       package = pkgs.pantheon.elementary-gtk-theme;
     };
+
+    # Keep gtk4 apps matching the gtk3 theme above (nixpkgs default flipped to null).
+    gtk4.theme = config.gtk.theme;
   };
 
   home.pointerCursor = {
+    enable = true;
     package = pkgs.pantheon.elementary-icon-theme;
     name = "elementary";
     size = 32;
@@ -183,16 +199,13 @@ with lib.hm.gvariant;
 			NoDisplay=true
 			StartupNotify=false
 		'';
-  };
 
-  home.file = {
-    "${config.xdg.configHome}/autostart/ibus-daemon.desktop".text = ''
+    "${config.xdg.configHome}/autostart/ulauncher.desktop".text = ''
 			[Desktop Entry]
-			Name=IBus Daemon
-			Comment=IBus Daemon
+			Name=Ulauncher
+			Comment=Application launcher
 			Type=Application
-			Exec=ibus-daemon --daemonize --desktop=pantheon
-			Categories=
+			Exec=${pkgs.ulauncher}/bin/ulauncher --hide-window
 			Terminal=false
 			NoDisplay=true
 			StartupNotify=false

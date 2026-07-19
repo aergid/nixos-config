@@ -15,7 +15,7 @@ in
     username = "${user}";
     homeDirectory = "/home/${user}";
     packages = pkgs.callPackage ./packages.nix {};
-    file = shared-files // import ./files.nix { inherit user; };
+    file = shared-files;
     # Create empty stubs for the local identity includes if absent, so the
     # ssh/git Include directives always resolve. Never overwrites.
     activation.bootstrapIdentityIncludes = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -31,12 +31,6 @@ in
   };
 
   services = {
-    #screen-locker = {
-    #  enable = true;
-    #  inactiveInterval = 10;
-    #  lockCmd = "${pkgs.i3lock-fancy-rapid}/bin/i3lock-fancy-rapid 10 15";
-    #};
-
     # Auto mount devices
     udiskie.enable = true;
   };

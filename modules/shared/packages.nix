@@ -11,7 +11,6 @@ in with pkgs; [
   onyxvim
   # General packages for development and system management
   act
-  alacritty
   aspell
   aspellDicts.en
   bat
@@ -31,7 +30,6 @@ in with pkgs; [
   grc
   jdk21
   jetbrains.idea
-  jetbrains.goland
   # joplin-desktop
   killall
   most

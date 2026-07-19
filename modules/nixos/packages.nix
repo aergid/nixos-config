@@ -12,6 +12,7 @@ in
     gnumake
     cmake
     home-manager
+    ulauncher # App launcher, fuzzy search (works on gala — no layer-shell needed)
 
     # Media and design tools
     celluloid #instead of gnome_mplayer
@@ -19,15 +20,11 @@ in
     fontconfig
     font-manager
 
-    # Productivity tools
-    bc # old school calculator
-    galculator
-
     # Audio tools
     pavucontrol # Pulse audio controls
 
     # Messaging and chat applications
-    tdesktop # telegram desktop
+    telegram-desktop
 
     # Testing and development tools
     # Screenshot and recording tools
@@ -35,23 +32,17 @@ in
     simplescreenrecorder
 
     # Text and terminal utilities
-    feh # Manage wallpapers
-    screenkey
     tree
     unixtools.ifconfig
     unixtools.netstat
-    xclip # For the org-download package in Emacs
-    xorg.xwininfo # Provides a cursor to click and learn about windows
-    xorg.xrandr
+    wl-clipboard
+    xwininfo # Provides a cursor to click and learn about windows
+    xrandr
 
     # File and system utilities
     inotify-tools # inotifywait, inotifywatch - For file system events
-    #  i3lock-fancy-rapid
     libnotify
     xdg-utils
-
-    # Other utilities
-    xdotool
 
     # PDF viewer
     evince

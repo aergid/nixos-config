@@ -262,119 +262,6 @@ in {
     nix-direnv.enable = true;
   };
 
-  alacritty = {
-    enable = true;
-
-    settings = {
-      cursor = { style = "Block"; };
-
-      env.term = "xterm-256color";
-
-      window = {
-        option_as_alt = "Both"; # | "OnlyRight" | "Both" | "None" # (macos only)
-        startup_mode = "Maximized";
-        opacity = 1.0;
-        padding = {
-          x = 0;
-          y = 0;
-        };
-      };
-
-      font = {
-        normal = {
-          family = "MesloLGS NF";
-          # style = "Regular";
-        };
-        size = lib.mkMerge [
-          (lib.mkIf pkgs.stdenv.hostPlatform.isLinux 14)
-          (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin 14)
-        ];
-      };
-
-      colors = {
-        primary = {
-          background = "#1e1e2e";
-          foreground = "#cdd6f4";
-          dim_foreground = "#7f849c";
-          bright_foreground = "#cdd6f4";
-        };
-
-        normal = {
-          black = "#45475a";
-          red = "#f38ba8";
-          green = "#a6e3a1";
-          yellow = "#f9e2af";
-          blue = "#89b4fa";
-          magenta = "#f5c2e7";
-          cyan = "#94e2d5";
-          white = "#bac2de";
-        };
-
-        bright = {
-          black = "#585b70";
-          red = "#f38ba8";
-          green = "#a6e3a1";
-          yellow = "#f9e2af";
-          blue = "#89b4fa";
-          magenta = "#f5c2e7";
-          cyan = "#94e2d5";
-          white = "#a6adc8";
-        };
-
-        cursor = {
-          text = "#1e1e2e";
-          cursor = "#f5e0dc";
-        };
-
-        vi_mode_cursor = {
-          text = "#1e1e2e";
-          cursor = "#b4befe";
-        };
-
-        search.matches = {
-          foreground = "#1e1e2e";
-          background = "#a6adc8";
-        };
-
-        search.focused_match = {
-          foreground = "#1e1e2e";
-          background = "#a6e3a1";
-        };
-
-        footer_bar = {
-          foreground = "#1e1e2e";
-          background = "#a6adc8";
-        };
-
-        hints.start = {
-          foreground = "#1e1e2e";
-          background = "#f9e2af";
-        };
-
-        hints.end = {
-          foreground = "#1e1e2e";
-          background = "#a6adc8";
-        };
-
-        selection = {
-          text = "#1e1e2e";
-          background = "#f5e0dc";
-        };
-
-        indexed_colors = [
-          {
-            index = 16;
-            color = "#fab387";
-          }
-          {
-            index = 17;
-            color = "#f5e0dc";
-          }
-        ];
-      };
-    };
-  };
-
   wezterm = {
     enable = true;
     extraConfig =
@@ -387,6 +274,8 @@ in {
           font_size = 14.0,
           color_scheme = 'Catppuccin Mocha (Gogh)',
           hide_tab_bar_if_only_one_tab = true,
+          window_decorations = "INTEGRATED_BUTTONS|RESIZE", -- wezterm draws its own buttons, no compositor SSD dependency
+          enable_wayland = true,
           keys = {
             {key="n", mods="SHIFT|CTRL", action="ToggleFullScreen"},
             {
@@ -409,6 +298,11 @@ in {
   ssh = {
     enable = true;
 
+    # Silences home-manager's default-values deprecation warning; the
+    # empty "*" block below is the RFC42-style replacement for the
+    # defaults enableDefaultConfig used to provide.
+    enableDefaultConfig = false;
+
     # Trailing glob so a missing file is tolerated (ssh errors on missing
     # non-glob Include paths). Kept as an escape hatch for ad-hoc local
     # entries not worth checking in.
@@ -419,8 +313,7 @@ in {
              then "/Users/${user}"
              else "/home/${user}";
     in {
-      # Required under the new RFC42-style schema in place of the old
-      # `enableDefaultConfig = false`. Empty body = no global defaults.
+      # Empty body = no global defaults (replaces the old enableDefaultConfig=true behavior).
       "*" = { };
 
       "github-work" = {

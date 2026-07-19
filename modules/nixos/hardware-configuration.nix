@@ -29,32 +29,21 @@
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
-  # Video support
-  hardware.opengl = {
+  # Video support (Skylake HD Graphics 520) - iHD (intel-media-driver) is the
+  # modern default for Gen9+; intel-vaapi-driver (i965) stays installed as a
+  # fallback for apps that need it, but is not forced via LIBVA_DRIVER_NAME.
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      # vpl-gpu-rt          # for newer GPUs on NixOS >24.05 or unstable
-      # onevpl-intel-gpu  # for newer GPUs on NixOS <= 24.05
-      intel-media-sdk   # for older GPUs
+      intel-media-driver
+      intel-vaapi-driver
+      libva-vdpau-driver
+      libvdpau-va-gl
     ];
   };
-
-  # hardware.graphics = {
-  #   enable = true;
-  #   extraPackages = with pkgs; [
-  #     intel-media-driver # LIBVA_DRIVER_NAME=iHD
-  #     intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-  #     vaapiVdpau
-  #     libvdpau-va-gl
-  #   ];
-  # };
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "i965"; };
 
 
   fileSystems."/" =
@@ -70,6 +59,10 @@
   swapDevices =
     [ { device = "/dev/disk/by-label/swap"; }
     ];
+
+  # Without this, HandleLidSwitch=suspend-then-hibernate can silently
+  # degrade into "power off, cold boot" instead of actually resuming.
+  boot.resumeDevice = "/dev/disk/by-label/swap";
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

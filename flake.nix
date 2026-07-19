@@ -157,10 +157,17 @@
         name = "nixos-${system}";
         value = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = inputs;
+          specialArgs = inputs // { inherit inputs; };
           modules = [
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = [
+                (self: super: {onyxvim = onyxvim.packages.${system}.default;})
+                yazi.overlays.default
+                (final: prev: llm-agents.packages.${system})
+              ];
+            }
             {
               home-manager = {
                 useGlobalPkgs = true;
