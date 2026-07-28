@@ -15,7 +15,6 @@ in {
   yazi = {
     enable = true;
     package = pkgs.yazi;
-    shellWrapperName = "y";
     settings = {
       manager = { ratio = [ 1 2 4 ]; };
       preview = {
@@ -44,6 +43,11 @@ in {
         {
           run = "close";
           on = [ "<C-q>" ];
+        }
+        {
+          run = "shell \"$SHELL\" --block";
+          on = "!";
+          desc = "Open shell here";
         }
         {
           run = "seek -5";
@@ -120,6 +124,9 @@ in {
 
       # Always color ls and group directories
       alias ls='ls --color=auto'
+
+      # Launch yazi (stays in the starting dir on quit)
+      alias y='yazi'
     '';
   };
 
@@ -208,16 +215,7 @@ in {
     shellAliases = {
       gc = "git commit";
       gs = "git status";
-    };
-    functions = {
-      y = ''
-        set tmp (mktemp -t "yazi-cwd.XXXXXX")
-        yazi $argv --cwd-file="$tmp"
-        if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-          builtin cd -- "$cwd"
-        end
-        rm -f -- "$tmp"
-      '';
+      y = "yazi";
     };
     plugins = with pkgs.fishPlugins; [
       {
