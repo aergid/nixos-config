@@ -9,6 +9,29 @@
   # Define the content of your file as a derivation
   sharedFiles = import ../shared/files.nix {inherit config pkgs;};
   additionalFiles = import ./files.nix {inherit user config pkgs;};
+
+  # Weekly "soft" GC of the per-user Nix profiles. The system-level nix.gc in
+  # hosts/darwin/default.nix runs as root and only scans /nix/var/nix/profiles,
+  # so it never touches ~/.local/state/nix/profiles. This keeps the last 14 days
+  # of user + home-manager generations as fallback, then collects the rest.
+  #
+  # NIX_REMOTE=daemon is set explicitly because launchd runs with a bare env that
+  # hasn't sourced the nix profile. Caveat: the daemon holds no macOS "App
+  # Management" grant, so it CANNOT delete store paths containing signed .app
+  # bundles (macOS blocks even root), and such a path aborts the whole sweep.
+  # Keep GUI apps in Homebrew casks so .apps stay out of the store; clear any
+  # stray one manually with a Full-Disk-Access terminal + `sudo nix-collect-garbage`.
+  nixGcUser = pkgs.writeShellScript "nix-gc-user-profiles" ''
+    set -u
+    export NIX_REMOTE=daemon
+    for p in profile home-manager; do
+      prof="$HOME/.local/state/nix/profiles/$p"
+      if [ -e "$prof" ]; then
+        ${pkgs.nixVersions.git}/bin/nix-env -p "$prof" --delete-generations 14d || true
+      fi
+    done
+    ${pkgs.nixVersions.git}/bin/nix-collect-garbage || true
+  '';
 in {
   imports = [
     ./dock
@@ -77,6 +100,24 @@ in {
       # Marked broken Oct 20, 2022 check later to remove this
       # https://github.com/nix-community/home-manager/issues/3344
       manual.manpages.enable = false;
+
+      # Weekly soft GC of this user's Nix profiles, Sundays 03:00 — one hour
+      # after the root-level system GC. Logs to ~/.local/state/nix-gc-user.log.
+      launchd.agents.nix-gc-user = {
+        enable = true;
+        config = {
+          ProgramArguments = ["${nixGcUser}"];
+          StartCalendarInterval = [
+            {
+              Weekday = 0;
+              Hour = 3;
+              Minute = 0;
+            }
+          ];
+          StandardOutPath = "${config.home.homeDirectory}/.local/state/nix-gc-user.log";
+          StandardErrorPath = "${config.home.homeDirectory}/.local/state/nix-gc-user.log";
+        };
+      };
     };
   };
 
