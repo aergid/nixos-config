@@ -16,6 +16,8 @@ in with pkgs; [
   bat
   btop
   claude-code
+  pi
+  dsh
   ccstatusline
   github-mcp-server
   coreutils
