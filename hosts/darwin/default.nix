@@ -29,6 +29,14 @@ in {
       substituters = [ "https://cache.nixos.org/" ];
       trusted-public-keys =
         [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+
+      # Automatically GC unreachable paths when free space runs low.
+      # This is the safety net that prevents the store from filling the volume.
+      min-free = 10 * 1024 * 1024 * 1024;
+      max-free = 30 * 1024 * 1024 * 1024;
+
+      # Hardlink-deduplicate new store paths on build.
+      auto-optimise-store = true;
     };
 
     gc = {
@@ -38,7 +46,7 @@ in {
         Hour = 2;
         Minute = 0;
       };
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 14d";
     };
 
     # Turn this on to make command line easier

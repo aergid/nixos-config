@@ -17,7 +17,6 @@ let user = "ksanteen";
     initrd.luks.devices = {
       crypt = {
         device = "/dev/sda2";
-        preLVM = true;
       };
     };
 

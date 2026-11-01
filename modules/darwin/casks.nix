@@ -29,6 +29,7 @@ _: [
   "google-chrome"
   "zen-browser"
   # AI
+  "ollama-app"
   "zoom"
   "claude"
 ]

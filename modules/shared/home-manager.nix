@@ -378,7 +378,7 @@ in {
           autolock location="file:${zellij-autolock}" {
               is_enabled true
               // Lock when any of these commands own the focused pane.
-              triggers "nvim|vim|fzf|zoxide|atuin"
+              triggers "nvim|vim|fzf|zoxide|atuin|opencode2"
               reaction_seconds "0.3"
           }
       }
@@ -413,6 +413,12 @@ in {
           }
 
           shared_except "locked" {
+              // Re-arm autolock after the Alt-q "hard escape", then lock immediately.
+              // If the focused pane is a shell, autolock unlocks again on the next keypress.
+              bind "Alt q" {
+                  MessagePlugin "autolock" { payload "enable"; };
+                  SwitchToMode "Locked";
+              }
               bind "Alt z" { ToggleFocusFullscreen; }      // zoom pane
               bind "Alt p" { ToggleTab; }                  // jump to previously-active tab
               bind "Alt 1" { GoToTab 1; }

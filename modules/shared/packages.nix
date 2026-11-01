@@ -17,9 +17,13 @@ in with pkgs; [
   btop
   claude-code
   pi
+  opencode2
+  orca
   dsh
   ccstatusline
   github-mcp-server
+  uv
+  nodejs
   coreutils
   delve
   fish
@@ -70,7 +74,6 @@ in with pkgs; [
   # nodePackages.nodemon
   # nodePackages.prettier
   # nodePackages.npm # globally install npm
-  # nodejs
 
   # Text and terminal utilities
   eza

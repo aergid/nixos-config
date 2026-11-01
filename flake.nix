@@ -166,6 +166,21 @@
                 (self: super: {onyxvim = onyxvim.packages.${system}.default;})
                 yazi.overlays.default
                 (final: prev: llm-agents.packages.${system})
+                # Work around nixpkgs breakage: elementary-session-settings
+                # references orca's orca-autostart.desktop, which the current
+                # orca package no longer ships. Drop the reference like
+                # nixpkgs already does for gnome-keyring/onboard. Remove once
+                # fixed upstream (--replace-fail will then error).
+                (final: prev: {
+                  pantheon = prev.pantheon.overrideScope (pfinal: pprev: {
+                    elementary-session-settings = pprev.elementary-session-settings.overrideAttrs (old: {
+                      postPatch = (old.postPatch or "") + ''
+                        substituteInPlace session/meson.build \
+                          --replace-fail "    'orca-autostart': join_paths(orca_prefix, 'etc/xdg/autostart', 'orca-autostart.desktop')," ""
+                      '';
+                    });
+                  });
+                })
               ];
             }
             {
